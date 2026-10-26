@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MILA · Pastelería de especialidad en Villa del Parque · tortas por encargo</title>
+<meta name="description" content="MILA, pastelería de especialidad hecha x Camila Pulvirenti en Melincué 3142, Villa del Parque. Encargá tu torta online: elegí tamaño, macarons y la fecha, y reservala con la seña del 50%.">
+<meta name="theme-color" content="#E694A5">
+<link rel="icon" href="img/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MILA · comer & ser feliz">
+<meta property="og:description" content="Tortas, tartas y cheesecakes por encargo: elegí la datita y reservá con la seña online. Melincué 3142, Villa del Parque.">
+<meta property="og:url" content="https://mila-patisserie.vercel.app/">
+<meta property="og:image" content="https://mila-patisserie.vercel.app/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+  // intro: se decide antes de pintar (sin parpadeo). Sin JS o con movimiento reducido no hay intro.
+  (function () { var d = document.documentElement; d.classList.add('js');
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]sinintro/.test(location.search)) d.classList.add('con-intro');
+    setTimeout(function () { if (!window.__mila) { d.classList.remove('con-intro'); d.classList.add('listo', 'a-salvo'); } }, 4500); })();
+</script>
+<link rel="preload" href="fonts/unbounded.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="fonts/zenmaru-medium.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="kit/kit.css?v=3">
+<link rel="stylesheet" href="css/mila.css?v=3">
+</head>
+<body>
+
+<!-- ===== INTRO: el personaje se dibuja, MILA se estampa, la vidriera se abre en arco ===== -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__glaseado"></div>
+  <div class="intro__centro">
+    <img class="intro__chica" src="img/personaje.webp" alt="" width="900" height="574" decoding="async">
+    <svg class="intro__logo" viewBox="0 0 1352 445" aria-hidden="true">
+      <path class="l1" d="M0,7 0,444 143,444 144,300 197,375 242,375 298,296 299,444 442,444 442,7 311,7 221,114 132,7Z"/>
+      <path class="l2" d="M481,7 481,444 624,444 624,7Z"/>
+      <path class="l3" d="M662,7 662,444 950,444 950,238 805,237 805,7Z"/>
+      <path class="l4" fill-rule="evenodd" d="M1028,34 1010,52 996,75 988,97 981,134 980,444 1123,444 1124,398 1207,398 1208,444 1351,444 1351,148 1349,127 1343,98 1335,76 1321,53 1302,34 1273,17 1236,6 1197,1 1157,0 1100,5 1062,15 1043,24ZM1123,190 1207,189 1208,235 1124,236Z"/>
+    </svg>
+    <span class="intro__mmm">mmm</span>
+    <p class="intro__lema">comer &amp; ser feliz</p>
+  </div>
+</div>
+
+<a class="saltar" href="#encargos">Ir a encargar una torta</a>
+
+<!-- ===== BARRA ===== -->
+<header class="barra" id="barra">
+  <a class="barra__logo" href="#inicio" aria-label="MILA, inicio"><img src="img/logo.svg" alt="MILA" width="1352" height="445"></a>
+  <nav class="barra__nav" aria-label="Secciones">
+    <a href="#encargos">Tortas por encargo</a>
+    <a href="#local">En el local hoy</a>
+    <a href="#tienda">Tienda</a>
+    <a href="#localcito">El localcito</a>
+    <a href="#visitanos">Visitanos</a>
+  </nav>
+  <div class="barra__acc">
+    <button type="button" class="cajita-btn" data-kit-open="carrito" data-kit-target aria-label="Abrir tu cajita">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16l-1.5 11h-13z"/><path d="M8 9a4 4 0 0 1 8 0"/></svg>
+      <span class="cajita-btn__txt">Tu cajita</span><b class="cajita-btn__n" data-cajita-n>0</b>
+    </button>
+    <button type="button" class="menu-btn" aria-label="Abrir el menú" aria-expanded="false" aria-controls="menu" data-menu>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Menú">
+    <a href="#encargos" data-cerrar-menu>Tortas por encargo</a>
+    <a href="#local" data-cerrar-menu>En el local hoy</a>
+    <a href="#tienda" data-cerrar-menu>Tienda</a>
+    <a href="#localcito" data-cerrar-menu>El localcito</a>
+    <a href="#visitanos" data-cerrar-menu>Visitanos</a>
+  </nav>
+  <img src="img/personaje.webp" alt="" width="900" height="574" loading="lazy" decoding="async">
+</div>
+
+<main id="inicio">
+
+<!-- ===== HERO ===== -->
+<section class="hero" aria-labelledby="hero-t">
+  <div class="hero__in">
+    <div class="hero__txt">
+      <p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p>
+      <h1 id="hero-t" class="hero__t"><span class="ren"><span>tortas, tartas</span></span> <span class="ren"><span>&amp; cheese&shy;cakes</span></span></h1>
+      <p class="hero__lead">Elegí la torta, el tamaño y la datita (con 4 días de anticipación) y reservala con la seña del 50% por Mercado Pago.</p>
+      <div class="hero__ctas">
+        <a class="btn btn--tinta" href="#encargos">Encargá tu torta</a>
+        <a class="btn btn--linea" href="#local">Qué hay hoy en el local</a>
+      </div>
+    </div>
+    <div class="hero__arte" aria-hidden="true">
+      <figure class="arco arco--a"><img src="img/tortas/marquise-frutos-rojos.webp" alt="" width="485" height="388" decoding="async" fetchpriority="high"><figcaption>Marquise frutos rojos</figcaption></figure>
+      <figure class="arco arco--c"><img src="img/tortas/red-velvet.webp" alt="" width="485" height="388" decoding="async"><figcaption>Red velvet</figcaption></figure>
+      <figure class="arco arco--b"><img src="img/tortas/marquise-pistacho.webp" alt="" width="485" height="388" decoding="async" fetchpriority="high"><figcaption>Marquise pistacho</figcaption></figure>
+      <img class="hero__chica" src="img/personaje.webp" alt="" width="900" height="574" decoding="async">
+      <span class="sticker sticker--mmm hero__mmm">mmm</span>
+    </div>
+  </div>
+  <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
+    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
+    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
+  </div></div>
+</section>
+
+<!-- ===== ENCARGOS ===== -->
+<section class="sec encargos" id="encargos" aria-labelledby="enc-t">
+  <div class="cont">
+    <div class="sec__head rv">
+      <div>
+        <p class="kicker">25 opciones · 20 y 24 cm · desde <span data-desde>$71.000</span></p>
+        <h2 id="enc-t" class="sec__t">encargá tu torta</h2>
+      </div>
+      <p class="sec__lead">Se piden con <b>4 días de anticipación</b> y se reservan con el <b>50%</b>. El resto lo pagás cuando la retirás en el local.</p>
+    </div>
+    <div class="enc">
+      <div class="enc__cat">
+        <div class="chips rv" role="group" aria-label="Filtrar tortas" data-filtros>
+          <button type="button" class="chip is-on" data-filtro="todas" aria-pressed="true">Todas</button>
+          <button type="button" class="chip" data-filtro="tortas" aria-pressed="false">Tortas</button>
+          <button type="button" class="chip" data-filtro="tartas" aria-pressed="false">Tartas</button>
+          <button type="button" class="chip" data-filtro="cheesecakes" aria-pressed="false">Cheesecakes</button>
+          <button type="button" class="chip chip--hel" data-filtro="helada" aria-pressed="false">Heladas</button>
+        </div>
+        <div class="tortas" data-tortas aria-live="polite"></div>
+        <div class="pager" data-pager>
+          <button type="button" class="btn btn--linea btn--chico" data-pag="-1">← Anteriores</button>
+          <span data-pag-n>1 / 1</span>
+          <button type="button" class="btn btn--linea btn--chico" data-pag="1">Más tortas →</button>
+        </div>
+      </div>
+
+      <!-- la caja: panel fijo en desktop, hoja que sube en el celu -->
+      <div class="caja-fondo" data-caja-fondo hidden></div>
+      <aside class="caja" id="caja" aria-label="Tu torta" data-caja>
+        <div class="caja__tirador" aria-hidden="true"></div>
+        <div class="caja__top">
+          <p class="caja__nombre" data-c-nombre>Elegí una torta</p>
+          <button type="button" class="caja__x" data-caja-cerrar aria-label="Cerrar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+        <ol class="pasos" aria-label="Pasos">
+          <li data-paso="1">Tamaño</li><li data-paso="2">Datita</li><li data-paso="3">Seña</li>
+        </ol>
+        <div class="caja__scroll">
+          <div class="caja__vis" aria-hidden="true">
+            <div class="plato" data-plato><img src="img/tortas/marquise-pistacho.webp" alt="" data-c-foto width="485" height="388"></div>
+            <img class="mac mac--1" src="img/macaron.webp" alt="" width="400" height="353">
+            <img class="mac mac--2" src="img/macaron.webp" alt="" width="400" height="353">
+            <img class="mac mac--3" src="img/macaron.webp" alt="" width="400" height="353">
+            <div class="cartelito"><b data-t-nombre>MILA</b><span data-t-tam>elegí el tamaño</span><span data-t-fecha>y la datita</span></div>
+          </div>
+          <p class="caja__desc" data-c-desc></p>
+          <div class="caja__bloque">
+            <p class="caja__lbl">Tamaño</p>
+            <div class="tamanos" data-c-tamanos role="radiogroup" aria-label="Tamaño"></div>
+          </div>
+          <label class="extra" data-c-extra hidden>
+            <input type="checkbox" data-c-mac>
+            <span class="extra__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
+            <span class="extra__txt"><b>Sumale macarons</b><small>Un color, sabor de la casa</small></span>
+            <span class="extra__precio" data-c-mac-precio></span>
+          </label>
+          <div class="caja__bloque">
+            <p class="caja__lbl">La datita <small data-c-primero></small></p>
+            <div class="cal" data-cal></div>
+            <p class="caja__nota">Lunes y martes descansamos.</p>
+          </div>
+          <div class="caja__bloque" data-c-franjas-wrap>
+            <p class="caja__lbl">¿A qué hora la retirás?</p>
+            <div class="franjas" data-c-franjas role="radiogroup" aria-label="Horario de retiro"></div>
+          </div>
+        </div>
+        <div class="caja__pie">
+          <div class="totales">
+            <div><span>Total</span><span data-c-total>—</span></div>
+            <div class="totales__sena"><span>Seña hoy</span><b data-c-sena>—</b></div>
+            <div class="totales__resto"><span>Resto al retirar</span><span data-c-resto>—</span></div>
+          </div>
+          <p class="caja__msg" data-c-msg role="alert"></p>
+          <button type="button" class="btn btn--tinta btn--ancho" data-c-sumar>Sumar a la cajita</button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CÓMO FUNCIONA ===== -->
+<section class="sec como" aria-labelledby="como-t">
+  <div class="cont">
+    <h2 id="como-t" class="sec__t sec__t--chico rv">así de fácil</h2>
+    <ol class="como__pasos" data-arrastre>
+      <li class="rv"><span class="como__n">1</span><img src="img/porcion.webp" alt="" width="500" height="438" loading="lazy" decoding="async"><b>Elegís</b><span>Una de las 25 tortas, tartas o cheesecakes, en 20 o 24 cm.</span></li>
+      <li class="rv"><span class="como__n">2</span><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="14" width="48" height="42" rx="8"/><path d="M8 26h48M20 8v12M44 8v12M22 38h6M36 38h6M22 46h6"/></svg><b>Marcás la datita</b><span>Con 4 días de anticipación, de miércoles a domingo.</span></li>
+      <li class="rv"><span class="como__n">3</span><img src="img/macaron.webp" alt="" width="400" height="353" loading="lazy" decoding="async"><b>Pagás la seña</b><span>El 50% por Mercado Pago, y queda reservada.</span></li>
+      <li class="rv"><span class="como__n">4</span><img src="img/personaje.webp" alt="" width="900" height="574" loading="lazy" decoding="async"><b>La retirás</b><span>En Melincué 3142 y pagás el resto. Comer &amp; ser feliz.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== EN EL LOCAL HOY ===== -->
+<section class="sec local" id="local" aria-labelledby="local-t">
+  <div class="cont">
+    <div class="sec__head rv">
+      <div>
+        <p class="kicker">Mostrador · Melincué 3142</p>
+        <h2 id="local-t" class="sec__t">en el local hoy</h2>
+      </div>
+      <div class="sec__lado">
+        <p class="sec__lead">Para comer acá o llevar. Lo que se termina, Cami lo marca desde el panel.</p>
+        <a class="btn btn--linea btn--chico" href="https://menu.fu.do/milaxcami" target="_blank" rel="noopener">¿Delivery? Pedí en Fu.do</a>
+      </div>
+    </div>
+    <div class="local__grid rv">
+      <div class="local__carta" id="carta-local" data-kit="carta" data-kit-pedir="false"
+        data-kit-categorias="especiales,alfajores,cuadrados,cookies,crumbl,porciones,porciones-cc,porciones-tartas,salado,sin-tacc"></div>
+      <figure class="local__foto" aria-hidden="true">
+        <img data-local-foto src="img/fotos/037-720.webp" alt="" width="720" height="900" loading="lazy" decoding="async">
+      </figure>
+    </div>
+    <div class="local__pager" data-local-pager>
+      <button type="button" class="btn btn--linea btn--chico" data-local-mover="-1">←</button>
+      <button type="button" class="btn btn--tinta btn--chico" data-local-mover="1">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TIENDA ===== -->
+<section class="sec tienda" id="tienda" aria-labelledby="tienda-t">
+  <div class="cont">
+    <div class="sec__head rv">
+      <div>
+        <p class="kicker">Pagás online · retirás en el local</p>
+        <h2 id="tienda-t" class="sec__t">llevate un poco de MILA</h2>
+      </div>
+      <p class="sec__lead">Merch y café de especialidad en bolsa.</p>
+    </div>
+    <div class="tienda__grid">
+      <div class="plancha rv" data-plancha>
+        <p class="plancha__t">plancha de stickers</p>
+        <div class="plancha__hoja" data-hoja>
+          <button type="button" class="stk stk--mmm" style="--x:6%;--y:8%;--r:-8deg" aria-label="Despegar sticker mmm">mmm</button>
+          <button type="button" class="stk stk--circ" style="--x:62%;--y:6%;--r:6deg" aria-label="Despegar sticker de macaron"><img src="img/macaron.webp" alt="" width="400" height="353" loading="lazy"></button>
+          <button type="button" class="stk stk--chica" style="--x:8%;--y:36%;--r:-3deg" aria-label="Despegar sticker de la chica de MILA"><img src="img/personaje.webp" alt="" width="900" height="574" loading="lazy"></button>
+          <button type="button" class="stk stk--pill" style="--x:66%;--y:44%;--r:7deg" aria-label="Despegar sticker dulce">dulce</button>
+          <button type="button" class="stk stk--pill" style="--x:62%;--y:62%;--r:-5deg" aria-label="Despegar sticker local">local</button>
+          <button type="button" class="stk stk--porc" style="--x:10%;--y:70%;--r:-10deg" aria-label="Despegar sticker de porción"><img src="img/porcion.webp" alt="" width="500" height="438" loading="lazy"></button>
+          <button type="button" class="stk stk--lema" style="--x:40%;--y:82%;--r:4deg" aria-label="Despegar sticker comer y ser feliz">comer &amp; ser feliz</button>
+        </div>
+        <div class="plancha__pie"><span class="plancha__p" data-plancha-precio>$500</span><div data-kit-qty="stickers"></div></div>
+        <p class="plancha__ayuda"><span class="solo-touch">Tocá un sticker para despegarlo: vuela a tu cajita.</span><span class="solo-mouse">Despegá un sticker y soltalo en tu cajita (o hacé clic).</span></p>
+      </div>
+      <div class="prods" data-tienda></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BOXES ===== -->
+<section class="sec boxes" aria-labelledby="boxes-t">
+  <div class="cont boxes__in">
+    <div class="boxes__fotos rv">
+      <figure><img src="img/fotos/010-720.webp" srcset="img/fotos/010-720.webp 720w, img/fotos/010-1280.webp 1280w" sizes="(min-width:1100px) 30vw, 70vw" alt="Box con brownies, cookies y alfajores de MILA" width="720" height="960" loading="lazy" decoding="async"></figure>
+      <figure><img src="img/fotos/044-720.webp" alt="Box para regalar con cartelito ilustrado" width="720" height="900" loading="lazy" decoding="async"></figure>
+      <figure><img src="img/fotos/058-720.webp" alt="Caja de MILA llena de cookies y cuadrados" width="720" height="898" loading="lazy" decoding="async"></figure>
+    </div>
+    <div class="boxes__txt rv">
+      <p class="kicker">Fechas especiales</p>
+      <h2 id="boxes-t" class="sec__t sec__t--chico">boxes para regalar</h2>
+      <p>Para el Día de la Madre, del Padre, San Valentín, Pascuas y fin de año, MILA arma boxes con lo más rico del mostrador. Se avisan en Instagram y se reservan con anticipación.</p>
+      <p class="boxes__prox">La próxima: <b>[FECHA ESPECIAL]</b></p>
+      <a class="btn btn--tinta" data-wa-boxes href="#" target="_blank" rel="noopener">Avisame por WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EL LOCALCITO ===== -->
+<section class="sec localcito" id="localcito" aria-labelledby="lc-t">
+  <div class="cont">
+    <div class="sec__head rv">
+      <div>
+        <p class="kicker">Melincué 3142 · desde febrero</p>
+        <h2 id="lc-t" class="sec__t">el localcito</h2>
+      </div>
+      <p class="sec__lead">MILA es pastelería de especialidad hecha x Camila Pulvirenti. Empezó con encargos desde su cocina y este año abrió su local en Villa del Parque, con mesitas en la vereda.</p>
+    </div>
+    <div class="vidriera" data-arrastre>
+      <figure class="vidriera__arco rv"><img src="img/fotos/060-720.webp" srcset="img/fotos/060-720.webp 720w, img/fotos/060-1280.webp 1280w" sizes="(min-width:1100px) 380px, 76vw" alt="Vidriera de MILA con arcos verdes y el personaje dibujado en el vidrio" width="720" height="1280" loading="lazy" decoding="async"></figure>
+      <figure class="vidriera__arco rv"><img src="img/fotos/024-720.webp" srcset="img/fotos/024-720.webp 720w, img/fotos/024-1280.webp 1280w" sizes="(min-width:1100px) 380px, 76vw" alt="Entrada del local con globos y el personaje de MILA" width="720" height="900" loading="lazy" decoding="async"></figure>
+      <figure class="vidriera__arco rv"><img src="img/fotos/025-720.webp" alt="Cartel de MILA en el interior del local" width="720" height="900" loading="lazy" decoding="async"></figure>
+      <figure class="vidriera__arco rv"><img src="img/fotos/055-720.webp" srcset="img/fotos/055-720.webp 720w, img/fotos/055-1280.webp 1280w" sizes="(min-width:1100px) 380px, 76vw" alt="Vereda de MILA llena de gente" width="720" height="958" loading="lazy" decoding="async"></figure>
+    </div>
+    <svg class="balaustrada" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M0 4h1200M0 56h1200"/><g data-balaustres></g></svg>
+    <blockquote class="frase rv">“Todo está hecho con amor y materia prima fresca, local y de la mejor calidad.”<cite>del catálogo de MILA</cite></blockquote>
+  </div>
+</section>
+
+<!-- ===== VISITANOS ===== -->
+<section class="sec visitanos" id="visitanos" aria-labelledby="vis-t">
+  <div class="cont visitanos__in">
+    <div class="visitanos__mapa rv">
+      <iframe title="Mapa de MILA en Melincué 3142" src="https://www.google.com/maps?q=Melincu%C3%A9%203142%2C%20Villa%20del%20Parque%2C%20CABA&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+    <div class="visitanos__txt rv">
+      <p class="kicker">Visitanos</p>
+      <h2 id="vis-t" class="sec__t sec__t--chico">Melincué 3142</h2>
+      <p class="visitanos__barrio">Villa del Parque, CABA · <span class="estrellas">★ 4,8</span> en Google (424 reseñas)</p>
+      <p class="estado estado--grande" data-estado></p>
+      <ul class="horarios" data-horarios></ul>
+      <div class="visitanos__btns">
+        <a class="btn btn--tinta" href="https://www.google.com/maps/search/?api=1&amp;query=Melincu%C3%A9%203142%2C%20Villa%20del%20Parque%2C%20CABA" target="_blank" rel="noopener">Cómo llegar</a>
+        <a class="btn btn--linea" data-wa href="#" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn--linea" href="https://www.instagram.com/milapatisserie/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="pie">
+  <div class="cont pie__in">
+    <div class="pie__marca">
+      <img class="pie__logo" src="img/logo.svg" alt="MILA" width="1352" height="445" loading="lazy">
+      <p class="pie__lema">comer &amp; ser feliz</p>
+      <p>Pastelería de especialidad hecha x Camila Pulvirenti.</p>
+    </div>
+    <nav class="pie__links" aria-label="Secciones">
+      <a href="#encargos">Tortas por encargo</a><a href="#local">En el local hoy</a><a href="#tienda">Tienda</a><a href="#localcito">El localcito</a><a href="admin/">Panel del local</a>
+    </nav>
+    <div class="pie__contacto">
+      <p>Melincué 3142, Villa del Parque</p>
+      <p>Mié a sáb 10 a 20 · dom 13 a 20</p>
+      <p><a data-wa href="#" target="_blank" rel="noopener">WhatsApp</a> · <a href="https://www.instagram.com/milapatisserie/" target="_blank" rel="noopener">@milapatisserie</a></p>
+    </div>
+    <img class="pie__chica" src="img/personaje.webp" alt="" width="900" height="574" loading="lazy" decoding="async">
+  </div>
+  <p class="pie__credito">Sitio desarrollado por <a href="https://alejomfernandez.com.ar" target="_blank" rel="noopener">Alejo Martín Fernández</a></p>
+</footer>
+
+<a class="wa-flot" data-wa href="#" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/></svg>
+</a>
+
+<script type="module" src="js/mila.js?v=3"></script>
+</body>
+</html>

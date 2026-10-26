@@ -1,0 +1,1294 @@
+{
+ "$schema": "https://raw.githubusercontent.com/AlejoMFernandez/kit-demos/main/docs/cliente.schema.json",
+ "id": "mila-patisserie",
+ "nombre": "MILA",
+ "pais": "AR",
+ "idioma": "es",
+ "modo": "demo",
+ "whatsapp": "5491162527888",
+ "prefijoPedido": "MI",
+ "supabase": {
+  "url": "",
+  "anonKey": ""
+ },
+ "marca": {
+  "logo": "img/logo.svg",
+  "logoPanel": "img/logo-crema.svg",
+  "favicon": "img/favicon.png",
+  "colores": {
+   "fondo": "#F3E6D2",
+   "superficie": "#FAF3E8",
+   "texto": "#191919",
+   "primario": "#191919",
+   "sobrePrimario": "#F3E6D2",
+   "acento": "#E694A5",
+   "sobreAcento": "#191919",
+   "borde": "#191919",
+   "suave": "#3E5A3A",
+   "ok": "#3E5A3A"
+  },
+  "fuentes": {
+   "titulos": "'Unbounded', sans-serif",
+   "texto": "'Zen Maru Gothic', sans-serif",
+   "googleFonts": ""
+  },
+  "estilo": {
+   "forma": "pildora",
+   "sombra": "3px 3px 0 #191919",
+   "borde": "2px",
+   "mayusculas": false
+  }
+ },
+ "modulos": {
+  "carta": true,
+  "carrito": true,
+  "reservas": false,
+  "admin": true
+ },
+ "horarios": {
+  "lun": [],
+  "mar": [],
+  "mie": [
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "jue": [
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "vie": [
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "sab": [
+   [
+    "10:00",
+    "20:00"
+   ]
+  ],
+  "dom": [
+   [
+    "13:00",
+    "20:00"
+   ]
+  ]
+ },
+ "pedidos": {
+  "salidas": [
+   "mercadopago",
+   "whatsapp"
+  ],
+  "tipos": [
+   "retiro"
+  ],
+  "envio": 0,
+  "minimo": 0,
+  "encargo": {
+   "anticipacionHoras": 0,
+   "diasAdelante": 30,
+   "cerrados": [],
+   "franjas": [
+    {
+     "id": "manana",
+     "nombre": "Mañana",
+     "desde": "10:00",
+     "hasta": "13:00"
+    },
+    {
+     "id": "mediodia",
+     "nombre": "Mediodía",
+     "desde": "13:00",
+     "hasta": "16:00"
+    },
+    {
+     "id": "tarde",
+     "nombre": "Tarde",
+     "desde": "16:00",
+     "hasta": "20:00"
+    }
+   ]
+  }
+ },
+ "pagos": {
+  "mercadopago": {
+   "endpoint": "https://kit-demos-amf.vercel.app/api/mp-preference",
+   "modo": "sandbox"
+  }
+ },
+ "carta": {
+  "categorias": [
+   {
+    "id": "tortas",
+    "nombre": "Tortas",
+    "anticipacionHoras": 96,
+    "sena": 0.5
+   },
+   {
+    "id": "tartas",
+    "nombre": "Tartas",
+    "anticipacionHoras": 96,
+    "sena": 0.5
+   },
+   {
+    "id": "cheesecakes",
+    "nombre": "Cheesecakes",
+    "anticipacionHoras": 96,
+    "sena": 0.5
+   },
+   {
+    "id": "especiales",
+    "nombre": "Especiales"
+   },
+   {
+    "id": "alfajores",
+    "nombre": "Alfajores"
+   },
+   {
+    "id": "cuadrados",
+    "nombre": "Cuadrados dulces"
+   },
+   {
+    "id": "cookies",
+    "nombre": "Cookies"
+   },
+   {
+    "id": "crumbl",
+    "nombre": "Crumbl cookies"
+   },
+   {
+    "id": "porciones",
+    "nombre": "Tortas en porción"
+   },
+   {
+    "id": "porciones-cc",
+    "nombre": "Cheesecakes en porción"
+   },
+   {
+    "id": "porciones-tartas",
+    "nombre": "Tartas en porción"
+   },
+   {
+    "id": "salado",
+    "nombre": "Salado"
+   },
+   {
+    "id": "sin-tacc",
+    "nombre": "Sin TACC"
+   },
+   {
+    "id": "cafe",
+    "nombre": "Café en bolsa"
+   },
+   {
+    "id": "merch",
+    "nombre": "Merch"
+   }
+  ],
+  "grupos": [
+   {
+    "nombre": "Encargos",
+    "categorias": [
+     "tortas",
+     "tartas",
+     "cheesecakes"
+    ]
+   },
+   {
+    "nombre": "Mostrador",
+    "categorias": [
+     "especiales",
+     "alfajores",
+     "cuadrados",
+     "cookies",
+     "crumbl",
+     "porciones",
+     "porciones-cc",
+     "porciones-tartas",
+     "salado",
+     "sin-tacc"
+    ]
+   },
+   {
+    "nombre": "Tienda",
+    "categorias": [
+     "cafe",
+     "merch"
+    ]
+   }
+  ],
+  "productos": [
+   {
+    "id": "t-marquise-clasica",
+    "categoria": "tortas",
+    "nombre": "Marquise clásica",
+    "descripcion": "Base de brownie húmedo, abundante dulce de leche, crema chantilly y copos de merengue italiano.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 71000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 77500
+     }
+    ],
+    "foto": "img/tortas/marquise-clasica.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-marquise-frutos-rojos",
+    "categoria": "tortas",
+    "nombre": "Marquise frutos rojos",
+    "descripcion": "Base de brownie húmedo, abundante dulce de leche, ganache montada de chocolate semi amargo, crema chantilly y frutos rojos.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 78000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 88500
+     }
+    ],
+    "foto": "img/tortas/marquise-frutos-rojos.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-marquise-kinder",
+    "categoria": "tortas",
+    "nombre": "Marquise Kinder",
+    "descripcion": "Base de brownie húmedo, una capa de dulce de leche y una de Nutella, ganache montada de chocolate blanco y chocolates.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 91500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 108000
+     }
+    ],
+    "foto": "img/tortas/marquise-kinder.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-marquise-pistacho",
+    "categoria": "tortas",
+    "nombre": "Marquise pistacho",
+    "descripcion": "Base de brownie húmedo con pistachos naturales, crema de pistachos, ganache montada de choco amargo y coronada con macarons de pistacho.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 95000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 113500
+     }
+    ],
+    "foto": "img/tortas/marquise-pistacho.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-marquise-pistacho-blanco",
+    "categoria": "tortas",
+    "nombre": "Marquise pistacho blanco",
+    "descripcion": "Base de brownie húmedo de chocolate blanco con pistachos naturales, crema de pistachos, crema chantilly y frutos rojos.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 87000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 101000
+     }
+    ],
+    "foto": "img/tortas/marquise-pistacho-blanco.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-bomba-oreo",
+    "categoria": "tortas",
+    "nombre": "Bomba Oreo",
+    "descripcion": "Capas intercaladas de galletitas Oreo, dulce de leche y crema de queso y vainilla. Coronada con hilos de chocolate y más galletitas.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 73000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 80000
+     }
+    ],
+    "foto": "img/tortas/bomba-oreo.webp",
+    "etiquetas": [
+     "helada"
+    ],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-maracumila",
+    "categoria": "tortas",
+    "nombre": "Maracumila",
+    "descripcion": "Capas intercaladas de galletitas de choco con trocitos de choco blanco, dulce de leche y ganache montada de choco blanco con naranja y miel. Terminada con dulce casero de maracuyá.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 78500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 88000
+     }
+    ],
+    "foto": "img/tortas/maracumila.webp",
+    "etiquetas": [
+     "helada"
+    ],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-nube-de-nuez",
+    "categoria": "tortas",
+    "nombre": "Nube de nuez",
+    "descripcion": "Base húmeda de bizcocho de nuez sin harina, generosa capa de dulce de leche y crema chantilly. Terminada con frutos rojos y trocitos de nueces caramelizadas.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 76000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 85000
+     }
+    ],
+    "foto": "img/tortas/nube-de-nuez.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-red-velvet",
+    "categoria": "tortas",
+    "nombre": "Red velvet",
+    "descripcion": "Tres capas de bizcocho color rojo, súper húmedo, con ligero sabor a cacao; rellenas con una suave crema de queso y chocolate blanco.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 76000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 84000
+     }
+    ],
+    "foto": "img/tortas/red-velvet.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-matilda",
+    "categoria": "tortas",
+    "nombre": "Matilda",
+    "descripcion": "Tres capas de bizcocho de cacao, súper húmedo, rellenas y cubiertas con una untuosa crema de chocolate semi amargo.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 82500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 95000
+     }
+    ],
+    "foto": "img/tortas/matilda.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-matilda-patagonia",
+    "categoria": "tortas",
+    "nombre": "Matilda Patagonia",
+    "descripcion": "Tres capas de bizcocho de cacao, súper húmedo, rellenas con una untuosa crema de choco semi amargo con frutos rojos, y cubierta en crema.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 87500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 101000
+     }
+    ],
+    "foto": "img/tortas/matilda-patagonia.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-carrot-cake",
+    "categoria": "tortas",
+    "nombre": "Carrot cake",
+    "descripcion": "Tres capas de bizcocho súper húmedo de zanahoria con canela, jengibre y nuez, rellenas de una crema suave de mascarpone. Terminada con nueces y coco en escamas.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 73000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 80000
+     }
+    ],
+    "foto": "img/tortas/carrot-cake.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "20": 12000,
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-lemon-pie",
+    "categoria": "tartas",
+    "nombre": "Lemon pie con frambuesas",
+    "descripcion": "Base crocante de masa brisée, rellena de curd de limón con frambuesas enteras en su interior, y copos de merengue italiano.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 71500
+     }
+    ],
+    "foto": "img/tortas/lemon-pie.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-key-lime-pie",
+    "categoria": "tartas",
+    "nombre": "Key lime pie",
+    "descripcion": "Base crocante de galletitas de vainilla, con un relleno horneado de lima y leche condensada, terminada con una corona de crema chantilly.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 80000
+     }
+    ],
+    "foto": "img/tortas/key-lime-pie.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-sablee-almendras",
+    "categoria": "tartas",
+    "nombre": "Sableé de almendras con frutos rojos",
+    "descripcion": "Base crocante de masa sableé con almendras tostadas, abundante capa de dulce de leche y crema chantilly. Terminada con frutos rojos.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 76500
+     }
+    ],
+    "foto": "img/tortas/sablee-almendras.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-martial",
+    "categoria": "tartas",
+    "nombre": "Martial",
+    "descripcion": "Base de masa sableé de cacao y almendras, dulce de leche, una fina y crocante capa de choco semi amargo con praliné de almendras y crema chantilly. Con dulce de frambuesa, frambuesas y pistachos.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 79000
+     }
+    ],
+    "foto": "img/tortas/martial.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-pipina",
+    "categoria": "tartas",
+    "nombre": "Pipina",
+    "descripcion": "Base crocante de masa sableé de cacao y avellanas, cremoso de chocolate amargo, un fino crocante de avellanas y cacao y una capa de salted caramel. Terminada con mousse de chocolate y caramelo, trocitos de avellanas y más crocante.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 89500
+     }
+    ],
+    "foto": "img/tortas/pipina.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-kinder-tarta",
+    "categoria": "tartas",
+    "nombre": "Tarta Kinder",
+    "descripcion": "Base crocante de galletitas Oreo, rellena con una untuosa mousse de Nutella. Con una capa de ganache montada de choco blanco y golosinas.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 86000
+     }
+    ],
+    "foto": "img/tortas/kinder-tarta.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-banoffee",
+    "categoria": "tartas",
+    "nombre": "Banoffee / Banana split",
+    "descripcion": "Base de galletita de vainilla con nuez, cremoso de chocolate, fina capa de dulce de leche, bananas frescas y crema chantilly. Terminada con virutas de chocolate semi amargo.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 76000
+     }
+    ],
+    "foto": "img/tortas/banoffee.webp",
+    "etiquetas": [],
+    "adicionales": [
+     {
+      "id": "macarons",
+      "nombre": "Macarons",
+      "precios": {
+       "24": 21000
+      }
+     }
+    ]
+   },
+   {
+    "id": "t-cc-new-york",
+    "categoria": "cheesecakes",
+    "nombre": "Cheesecake New York",
+    "descripcion": "Clásico horneado con base crocante de galletitas de vainilla. Terminado con dulce casero de frutos rojos y frutos frescos. ¡Cremoso!",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 80500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 91000
+     }
+    ],
+    "foto": "img/tortas/cc-new-york.webp",
+    "etiquetas": []
+   },
+   {
+    "id": "t-cc-limon-maracuya",
+    "categoria": "cheesecakes",
+    "nombre": "Cheesecake limón y maracuyá",
+    "descripcion": "Limón horneado con base crocante de galletitas de choco. Terminado con una capa de curd de limón y dulce casero de maracuyá. ¡Cremoso!",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 75500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 84000
+     }
+    ],
+    "foto": "img/tortas/cc-limon-maracuya.webp",
+    "etiquetas": []
+   },
+   {
+    "id": "t-cc-choco-frutos-rojos",
+    "categoria": "cheesecakes",
+    "nombre": "Cheesecake choco semi amargo y frutos rojos",
+    "descripcion": "Horneado de chocolate semi amargo, con base crocante de galletitas de chocolate. Terminado con dulce casero de frutos rojos y frutos frescos.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 85000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 98000
+     }
+    ],
+    "foto": "img/tortas/cc-choco-frutos-rojos.webp",
+    "etiquetas": []
+   },
+   {
+    "id": "t-cc-ddl-nuez",
+    "categoria": "cheesecakes",
+    "nombre": "Cheesecake dulce de leche y nuez",
+    "descripcion": "Horneado de dulce de leche, con base crocante de galletitas de chocolate con trocitos de nuez. Terminado con crema chantilly, más nueces e hilos de dulce de leche.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 80500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 91200
+     }
+    ],
+    "foto": "img/tortas/cc-ddl-nuez.webp",
+    "etiquetas": []
+   },
+   {
+    "id": "t-cc-pistacho-frambuesas",
+    "categoria": "cheesecakes",
+    "nombre": "Cheesecake pistacho con frambuesas",
+    "descripcion": "Horneado de pistacho, con base crocante de galletitas de vainilla y trocitos de pistachos. Con una fina capa de crema de pistachos y choco blanco, con frambuesas y pistachos.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 94500
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 112000
+     }
+    ],
+    "foto": "img/tortas/cc-pistacho-frambuesas.webp",
+    "etiquetas": []
+   },
+   {
+    "id": "t-cc-choco-blanco-coco",
+    "categoria": "cheesecakes",
+    "nombre": "Cheesecake choco blanco, coco y dulce de leche",
+    "descripcion": "Horneado de chocolate blanco y coco, relleno con tropezones de dulce de leche, con base crocante de galletitas de vainilla y coco.",
+    "precio": null,
+    "encargo": true,
+    "variantes": [
+     {
+      "id": "20",
+      "nombre": "20 cm",
+      "precio": 82000
+     },
+     {
+      "id": "24",
+      "nombre": "24 cm",
+      "precio": 93000
+     }
+    ],
+    "foto": "img/tortas/cc-choco-blanco-coco.webp",
+    "etiquetas": []
+   },
+   {
+    "id": "lingote-limon",
+    "categoria": "especiales",
+    "nombre": "Lingote limón, arándanos y yogur",
+    "descripcion": "",
+    "precio": 7800,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "alfajor-tita",
+    "categoria": "alfajores",
+    "nombre": "Tita",
+    "descripcion": "Galletita de limón con relleno cremoso y baño de chocolate.",
+    "precio": 7300,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "cheese-brownie",
+    "categoria": "cuadrados",
+    "nombre": "Cheese brownie",
+    "descripcion": "Brownie súper húmedo, marmolado con cheesecake y frambuesas.",
+    "precio": 8500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "brownie-choco-blanco",
+    "categoria": "cuadrados",
+    "nombre": "Brownie con choco blanco",
+    "descripcion": "",
+    "precio": 7800,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "lemonie",
+    "categoria": "cuadrados",
+    "nombre": "Lemonie",
+    "descripcion": "",
+    "precio": 7700,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "cuadrado-coco-ddl",
+    "categoria": "cuadrados",
+    "nombre": "Cuadrado de coco y dulce de leche",
+    "descripcion": "",
+    "precio": 7000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "brookie",
+    "categoria": "cookies",
+    "nombre": "Brookie con castañas y pretzels",
+    "descripcion": "Cookie húmeda de chocolate con chocolate con leche, castañas de cajú, pretzels y sésamo blanco.",
+    "precio": 6900,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "cookie-full-pistacho",
+    "categoria": "cookies",
+    "nombre": "Cookie full pistacho",
+    "descripcion": "Masa de pistacho, con pasta de pistachos artesanal y más pistachos.",
+    "precio": 8000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "crumbl-salted-caramel",
+    "categoria": "crumbl",
+    "nombre": "Chocolate y salted caramel",
+    "descripcion": "Cookie de chocolate con relleno de salted caramel y chocolate semi amargo con sal en escamas.",
+    "precio": 8200,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "crumbl-frutos-rojos",
+    "categoria": "crumbl",
+    "nombre": "Choco blanco y frutos rojos",
+    "descripcion": "Masa de vainilla con pedacitos de chocolate blanco y frutos rojos, con crema de queso y chocolate blanco, y más fruta por arriba.",
+    "precio": 8300,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "crumbl-franui",
+    "categoria": "crumbl",
+    "nombre": "Franui",
+    "descripcion": "Masa de chocolate, curd de frambuesa con frambuesas enteras y ganache montada de chocolate blanco.",
+    "precio": 8600,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "crumbl-pistacho",
+    "categoria": "crumbl",
+    "nombre": "Pistacho y choco blanco",
+    "descripcion": "Con trocitos de pistacho y chocolate blanco, con ganache y pasta casera de pistacho.",
+    "precio": 8600,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-marquise-clasica",
+    "categoria": "porciones",
+    "nombre": "Marquise clásica",
+    "descripcion": "Brownie, dulce de leche, crema y merengue.",
+    "precio": 13000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-matilda-patagonia",
+    "categoria": "porciones",
+    "nombre": "Matilda Patagonia",
+    "descripcion": "Bizcocho de cacao, relleno de cremoso de chocolate con frutos rojos, cubierta en ganache.",
+    "precio": 15000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-carrot-cake",
+    "categoria": "porciones",
+    "nombre": "Carrot cake",
+    "descripcion": "Bizcocho de zanahoria y nuez, con relleno de queso crema.",
+    "precio": 13000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-marquise-pistacho-fr",
+    "categoria": "porciones",
+    "nombre": "Marquise pistacho y frutos rojos",
+    "descripcion": "Blondie, ganache de pistachos, crema chantilly y frutos rojos.",
+    "precio": 14800,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-cheesecake-ny",
+    "categoria": "porciones-cc",
+    "nombre": "Cheesecake New York",
+    "descripcion": "",
+    "precio": 15000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-vasca-matcha",
+    "categoria": "porciones-cc",
+    "nombre": "Vasca matcha",
+    "descripcion": "Cheesecake vasco de matcha y miso, con crema de maracuyá y lima.",
+    "precio": 15900,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "p-banoffee",
+    "categoria": "porciones-tartas",
+    "nombre": "Banoffee",
+    "descripcion": "Base de galletita con nuez, cremoso de chocolate, dulce de leche, banana y crema.",
+    "precio": 13000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "chipa",
+    "categoria": "salado",
+    "nombre": "Chipá",
+    "descripcion": "",
+    "precio": 6300,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "scon-queso",
+    "categoria": "salado",
+    "nombre": "Scon de queso",
+    "descripcion": "Calentito, con queso crema, oliva y pimienta.",
+    "precio": 6500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "scon-pesto",
+    "categoria": "salado",
+    "nombre": "Scon de queso relleno de pesto y queso",
+    "descripcion": "",
+    "precio": 7200,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "chipa-jyq",
+    "categoria": "salado",
+    "nombre": "Chipá relleno de jamón y queso",
+    "descripcion": "",
+    "precio": 7000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "chipa-pesto",
+    "categoria": "salado",
+    "nombre": "Chipá relleno de pesto y queso",
+    "descripcion": "",
+    "precio": 7000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "scon-jyq",
+    "categoria": "salado",
+    "nombre": "Scon de queso relleno de jamón y queso",
+    "descripcion": "",
+    "precio": 7300,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "stacc-scon",
+    "categoria": "sin-tacc",
+    "nombre": "Scon de queso con hierbas",
+    "descripcion": "",
+    "precio": 8500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "stacc-alfajor",
+    "categoria": "sin-tacc",
+    "nombre": "Alfajor pistacho y frambuesa",
+    "descripcion": "",
+    "precio": 8500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "stacc-cookie",
+    "categoria": "sin-tacc",
+    "nombre": "Cookie Nutella",
+    "descripcion": "",
+    "precio": 7500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "cafe-kenya-molido",
+    "categoria": "cafe",
+    "nombre": "Café Kenya molido 250 g",
+    "descripcion": "Para volturno, filtro, espresso o cápsula.",
+    "precio": 25000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "cafe-kenya-grano",
+    "categoria": "cafe",
+    "nombre": "Café Kenya en grano 250 g",
+    "descripcion": "",
+    "precio": 25000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "remera-rosa",
+    "categoria": "merch",
+    "nombre": "Remera rosa",
+    "descripcion": "Remera rosa con estampa blanca.",
+    "precio": 35000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "remera-verde",
+    "categoria": "merch",
+    "nombre": "Remera verde",
+    "descripcion": "Remera verde con estampa blanca.",
+    "precio": 35000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "remera-crudo",
+    "categoria": "merch",
+    "nombre": "Remera cruda",
+    "descripcion": "Remera color crudo con estampa en negro.",
+    "precio": 35000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "tote",
+    "categoria": "merch",
+    "nombre": "Tote bag “Comer & ser feliz”",
+    "descripcion": "40 × 40 cm.",
+    "precio": 15000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "gorra",
+    "categoria": "merch",
+    "nombre": "Gorra",
+    "descripcion": "",
+    "precio": 10000,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "tazas",
+    "categoria": "merch",
+    "nombre": "Taza",
+    "descripcion": "",
+    "precio": 9500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "panuelos",
+    "categoria": "merch",
+    "nombre": "Pañuelo",
+    "descripcion": "",
+    "precio": 6500,
+    "foto": "",
+    "etiquetas": []
+   },
+   {
+    "id": "stickers",
+    "categoria": "merch",
+    "nombre": "Plancha de stickers",
+    "descripcion": "",
+    "precio": 500,
+    "foto": "",
+    "etiquetas": []
+   }
+  ]
+ },
+ "textos": {
+  "tuPedido": "Tu cajita",
+  "verPedido": "Tu cajita",
+  "agregar": "Sumar",
+  "carritoVacio": "Tu cajita está vacía.",
+  "carritoVacioSub": "Elegí una torta o algo de la tienda y aparece acá.",
+  "enviarPedido": "Enviar por WhatsApp",
+  "pagar": "Pagar con Mercado Pago",
+  "pedidoPagado": "¡Encargo confirmado!",
+  "pedidoPagadoSub": "Tu código es {codigo}. Ya está en la cocina de Cami: te escribimos por WhatsApp.",
+  "pedidoListo": "¡Listo, ya nos llegó!",
+  "notaPedido": "Mensaje para la torta o aclaraciones",
+  "noDisponible": "Se terminó",
+  "retiro": "Retiro en Melincué 3142",
+  "diaRetiro": "Elegí la datita",
+  "encargos": "Encargos",
+  "hay": "Hay",
+  "noHay": "Se terminó",
+  "panel": "La cocina de Cami",
+  "porMPSub": "Pagás la seña ahora, el resto al retirar",
+  "waPedido": "Hola MILA! Quiero hacer este encargo:"
+ }
+}
