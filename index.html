@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="MILA · comer & ser feliz">
-<meta property="og:description" content="Tortas, tartas y cheesecakes por encargo: elegí la datita y reservá con la seña online. Melincué 3142, Villa del Parque.">
+<meta property="og:description" content="Tortas, tartas y cheesecakes por encargo: elegí el día y reservá con la seña online. Melincué 3142, Villa del Parque.">
 <meta property="og:url" content="https://mila-patisserie.vercel.app/">
 <meta property="og:image" content="https://mila-patisserie.vercel.app/img/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -87,7 +87,7 @@
     <div class="hero__txt">
       <p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p>
       <h1 id="hero-t" class="hero__t"><span class="ren"><span>tortas, tartas</span></span> <span class="ren"><span>&amp; cheese&shy;cakes</span></span></h1>
-      <p class="hero__lead">Elegí la torta, el tamaño y la datita (con 4 días de anticipación) y reservala con la seña del 50% por Mercado Pago.</p>
+      <p class="hero__lead">Elegí la torta, el tamaño y el día que la pasás a buscar (con 4 días de anticipación), y reservala con una seña del 50% por Mercado Pago.</p>
       <div class="hero__ctas">
         <a class="btn btn--tinta" href="#encargos">Encargá tu torta</a>
         <a class="btn btn--linea" href="#local">Qué hay hoy en el local</a>
@@ -136,54 +136,62 @@
 
       <!-- la caja: panel fijo en desktop, hoja que sube en el celu -->
       <div class="caja-fondo" data-caja-fondo hidden></div>
-      <aside class="caja" id="caja" aria-label="Tu torta" data-caja>
+      <aside class="caja" id="caja" aria-label="Encargar torta" data-caja>
         <div class="caja__tirador" aria-hidden="true"></div>
         <div class="caja__top">
-          <p class="caja__nombre" data-c-nombre>Elegí una torta</p>
+          <span class="caja__foto"><img src="img/tortas/marquise-pistacho.webp" alt="" width="485" height="388" data-c-foto></span>
+          <div class="caja__tit">
+            <p class="caja__nombre" data-c-nombre>Elegí una torta</p>
+            <p class="caja__cambiar">¿Otra? Tocala en la lista</p>
+          </div>
           <button type="button" class="caja__x" data-caja-cerrar aria-label="Cerrar">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
           </button>
         </div>
-        <ol class="pasos" aria-label="Pasos">
-          <li data-paso="1">Tamaño</li><li data-paso="2">Datita</li><li data-paso="3">Seña</li>
-        </ol>
-        <div class="caja__scroll">
-          <div class="caja__vis" aria-hidden="true">
-            <div class="plato" data-plato><img src="img/tortas/marquise-pistacho.webp" alt="" data-c-foto width="485" height="388"></div>
-            <img class="mac mac--1" src="img/macaron.webp" alt="" width="400" height="353">
-            <img class="mac mac--2" src="img/macaron.webp" alt="" width="400" height="353">
-            <img class="mac mac--3" src="img/macaron.webp" alt="" width="400" height="353">
-            <div class="cartelito"><b data-t-nombre>MILA</b><span data-t-tam>elegí el tamaño</span><span data-t-fecha>y la datita</span></div>
+        <div class="progreso" aria-hidden="true"><p class="progreso__txt" data-prog-txt>Paso 1 de 4</p><div class="progreso__barra" data-prog></div></div>
+        <div class="caja__scroll" data-c-scroll>
+          <!-- 1 · tamaño -->
+          <div class="paso" data-paso="tam">
+            <h3 class="paso__t" tabindex="-1">¿De qué tamaño la querés?</h3>
+            <p class="paso__ayuda paso__ayuda--desc" data-c-desc></p>
+            <div class="opts opts--tam" data-c-tamanos role="radiogroup" aria-label="Tamaño"></div>
           </div>
-          <p class="caja__desc" data-c-desc></p>
-          <div class="caja__bloque">
-            <p class="caja__lbl">Tamaño</p>
-            <div class="tamanos" data-c-tamanos role="radiogroup" aria-label="Tamaño"></div>
+          <!-- 2 · macarons -->
+          <div class="paso" data-paso="mac" hidden>
+            <h3 class="paso__t" tabindex="-1">¿Le sumamos macarons arriba?</h3>
+            <p class="paso__ayuda">Van de un solo color, con el sabor de la casa.</p>
+            <div class="opts" data-c-macs role="radiogroup" aria-label="Macarons"></div>
           </div>
-          <label class="extra" data-c-extra hidden>
-            <input type="checkbox" data-c-mac>
-            <span class="extra__box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg></span>
-            <span class="extra__txt"><b>Sumale macarons</b><small>Un color, sabor de la casa</small></span>
-            <span class="extra__precio" data-c-mac-precio></span>
-          </label>
-          <div class="caja__bloque">
-            <p class="caja__lbl">La datita <small data-c-primero></small></p>
-            <div class="cal" data-cal></div>
-            <p class="caja__nota">Lunes y martes descansamos.</p>
+          <!-- 3 · día -->
+          <div class="paso" data-paso="dia" hidden>
+            <h3 class="paso__t" tabindex="-1">¿Qué día la pasás a buscar?</h3>
+            <p class="paso__ayuda" data-c-primero>Necesitamos 4 días para prepararla. Lunes y martes el local está cerrado.</p>
+            <div class="opts" data-c-dias role="radiogroup" aria-label="Día de retiro"></div>
+            <button type="button" class="mas-dias" data-c-mas>Ver más fechas</button>
           </div>
-          <div class="caja__bloque" data-c-franjas-wrap>
-            <p class="caja__lbl">¿A qué hora la retirás?</p>
-            <div class="franjas" data-c-franjas role="radiogroup" aria-label="Horario de retiro"></div>
+          <!-- 4 · horario -->
+          <div class="paso" data-paso="hora" hidden>
+            <h3 class="paso__t" tabindex="-1">¿En qué horario?</h3>
+            <p class="paso__ayuda" data-c-dia-elegido></p>
+            <div class="opts" data-c-franjas role="radiogroup" aria-label="Horario de retiro"></div>
+          </div>
+          <!-- 5 · resumen -->
+          <div class="paso" data-paso="ok" hidden>
+            <h3 class="paso__t" tabindex="-1">Revisá tu encargo</h3>
+            <dl class="resumen" data-c-resumen></dl>
+            <div class="cuentas">
+              <div><span>Precio total</span><span data-c-total>—</span></div>
+              <div class="cuentas__hoy"><span>Hoy pagás la seña (50%)</span><b data-c-sena>—</b></div>
+              <div><span>El resto, cuando la retirás</span><span data-c-resto>—</span></div>
+            </div>
           </div>
         </div>
         <div class="caja__pie">
-          <div class="totales">
-            <div><span>Total</span><span data-c-total>—</span></div>
-            <div class="totales__sena"><span>Seña hoy</span><b data-c-sena>—</b></div>
-            <div class="totales__resto"><span>Resto al retirar</span><span data-c-resto>—</span></div>
-          </div>
           <p class="caja__msg" data-c-msg role="alert"></p>
-          <button type="button" class="btn btn--tinta btn--ancho" data-c-sumar>Sumar a la cajita</button>
+          <div class="caja__botones">
+            <button type="button" class="btn btn--linea caja__volver" data-c-volver>← Volver</button>
+            <button type="button" class="btn btn--tinta caja__seguir" data-c-seguir>Siguiente</button>
+          </div>
         </div>
       </aside>
     </div>
@@ -196,7 +204,7 @@
     <h2 id="como-t" class="sec__t sec__t--chico rv">así de fácil</h2>
     <ol class="como__pasos" data-arrastre>
       <li class="rv"><span class="como__n">1</span><img src="img/porcion.webp" alt="" width="500" height="438" loading="lazy" decoding="async"><b>Elegís</b><span>Una de las 25 tortas, tartas o cheesecakes, en 20 o 24 cm.</span></li>
-      <li class="rv"><span class="como__n">2</span><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="14" width="48" height="42" rx="8"/><path d="M8 26h48M20 8v12M44 8v12M22 38h6M36 38h6M22 46h6"/></svg><b>Marcás la datita</b><span>Con 4 días de anticipación, de miércoles a domingo.</span></li>
+      <li class="rv"><span class="como__n">2</span><svg viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="14" width="48" height="42" rx="8"/><path d="M8 26h48M20 8v12M44 8v12M22 38h6M36 38h6M22 46h6"/></svg><b>Elegís el día</b><span>Con 4 días de anticipación, de miércoles a domingo.</span></li>
       <li class="rv"><span class="como__n">3</span><img src="img/macaron.webp" alt="" width="400" height="353" loading="lazy" decoding="async"><b>Pagás la seña</b><span>El 50% por Mercado Pago, y queda reservada.</span></li>
       <li class="rv"><span class="como__n">4</span><img src="img/personaje.webp" alt="" width="900" height="574" loading="lazy" decoding="async"><b>La retirás</b><span>En Melincué 3142 y pagás el resto. Comer &amp; ser feliz.</span></li>
     </ol>

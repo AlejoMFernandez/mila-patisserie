@@ -134,7 +134,7 @@ function horarios(config) {
 function encargos(kit) {
   const { config, store, money } = kit;
   const grid = $('[data-tortas]'), caja = $('[data-caja]'), fondo = $('[data-caja-fondo]');
-  const st = { filtro: 'todas', pag: 0, sel: null, variante: null, mac: false, fecha: kit.carrito.retiro.fecha || '', franja: kit.carrito.retiro.franja || '' };
+  const st = { filtro: 'todas', pag: 0, sel: null, variante: null, mac: null, paso: 0, masDias: false, fecha: kit.carrito.retiro.fecha || '', franja: kit.carrito.retiro.franja || '' };
   let tortas = [], categorias = [], productos = [];
   // días y franjas con las mismas reglas que el checkout del kit (horarios, anticipación de la sección, días cerrados)
   const opciones = () => opcionesRetiro({ horarios: config.horarios, encargo: config.pedidos?.encargo, tz: config.zonaHoraria, productos, categorias, lineas: st.sel ? [{ id: st.sel, cant: 1 }] : [] });
@@ -146,13 +146,13 @@ function encargos(kit) {
     st.pag = Math.min(st.pag, pags - 1);
     grid.innerHTML = L.slice(st.pag * n, st.pag * n + n).map((p, i) => {
       const vs = (p.variantes || []).filter(v => v.precio != null);
-      const corto = !matchMedia('(min-width: 768px)').matches;
-      const precio = !vs.length ? 'Consultar' : corto ? (vs.length > 1 ? `desde ${money(precioDesde(p))}` : `${vs[0].nombre} · ${money(vs[0].precio)}`)
-        : vs.map(v => `${v.nombre} ${money(v.precio)}`).join(' · ');
-      return `<button type="button" class="torta${p.id === st.sel ? ' is-on' : ''}" data-torta="${esc(p.id)}" style="--i:${animar ? i : 0}" ${p.disponible === false ? 'disabled' : ''} aria-pressed="${p.id === st.sel}">
+      const precio = !vs.length ? 'Consultar' : vs.length > 1 ? `desde ${money(precioDesde(p))}` : `${money(vs[0].precio)} · ${esc(vs[0].nombre)}`;
+      const on = p.id === st.sel;
+      return `<button type="button" class="torta${on ? ' is-on' : ''}" data-torta="${esc(p.id)}" style="--i:${animar ? i : 0}" ${p.disponible === false ? 'disabled' : ''} aria-pressed="${on}">
         <span class="torta__foto"><img src="${esc(kit.asset(p.foto))}" alt="" width="485" height="388" loading="lazy" decoding="async"></span>
         ${(p.etiquetas || []).includes('helada') ? '<span class="torta__tag">helada</span>' : ''}
-        <span class="torta__n">${esc(p.nombre)}</span><span class="torta__p">${p.disponible === false ? 'No disponible por ahora' : precio}</span></button>`;
+        <span class="torta__n">${esc(p.nombre)}</span><span class="torta__p">${p.disponible === false ? 'No disponible por ahora' : precio}</span>
+        <span class="torta__cta" aria-hidden="true">${on ? 'Elegida ✓' : 'Encargar'}</span></button>`;
     }).join('');
     $('[data-pag-n]').textContent = `${st.pag + 1} / ${pags}`;
     $('[data-pager]').hidden = pags < 2;
@@ -163,25 +163,40 @@ function encargos(kit) {
 
   function torta() { return tortas.find(p => p.id === st.sel); }
   function elegir(id, abrir) {
-    if (st.sel !== id) { st.sel = id; st.variante = null; st.mac = false; }
+    if (st.sel !== id) { st.sel = id; st.variante = null; st.mac = null; st.paso = 0; st.masDias = false; }
     const p = torta(); if (!p) return;
-    if ((p.variantes || []).length === 1) st.variante = p.variantes[0].id;
+    const vs = (p.variantes || []).filter(v => v.precio != null);
+    if (vs.length === 1) st.variante = vs[0].id;
     pintarCaja(true);
-    $$('.torta', grid).forEach(b => { const on = b.dataset.torta === id; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
+    $$('.torta', grid).forEach(b => { const on = b.dataset.torta === id; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); const c = $('.torta__cta', b); if (c) c.textContent = on ? 'Elegida ✓' : 'Encargar'; });
     if (abrir && !esDesk()) abrirCaja(true);
+    else if (abrir && esDesk()) { const r = caja.getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight + 2) caja.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); }
   }
 
   let yLock = 0;
   function abrirCaja(on) {
     if (esDesk()) return;
     caja.classList.toggle('is-abierta', on); fondo.hidden = !on; html.classList.toggle('caja-abierta', on);
-    if (on) { yLock = scrollY; document.body.style.cssText = `position:fixed;top:-${yLock}px;left:0;right:0`; setTimeout(() => $('[data-caja-cerrar]').focus({ preventScroll: true }), 300); }
+    if (on) { yLock = scrollY; document.body.style.cssText = `position:fixed;top:-${yLock}px;left:0;right:0`; setTimeout(() => $('.paso:not([hidden]) .paso__t', caja)?.focus({ preventScroll: true }), 300); }
     else if (document.body.style.position === 'fixed') { document.body.style.cssText = ''; scrollTo({ top: yLock, behavior: 'instant' }); }
   }
   fondo.addEventListener('click', () => abrirCaja(false));
   $('[data-caja-cerrar]').addEventListener('click', () => abrirCaja(false));
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && caja.classList.contains('is-abierta')) abrirCaja(false); });
   matchMedia('(min-width: 1100px)').addEventListener('change', (m) => { if (m.matches) abrirCaja(false); pintarGrid(false); });
+
+  // ----- el paso a paso
+  const DLARGO = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+  const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+  const fechaLarga = (f) => { const [y, m, d] = f.split('-').map(Number); const w = DLARGO[new Date(Date.UTC(y, m - 1, d)).getUTCDay()]; return `${w[0].toUpperCase() + w.slice(1)} ${d} de ${MESES[m - 1]}`; };
+  const NOMBRE_PASO = { tam: 'Tamaño', mac: 'Macarons', dia: 'Día', hora: 'Horario', ok: 'Confirmar' };
+  const macDe = (p) => (p?.adicionales || []).find(a => a.id === 'macarons');
+  const pasos = () => ['tam', ...(macDe(torta()) ? ['mac'] : []), 'dia', 'hora', 'ok'];
+  const pasoAct = () => pasos()[Math.min(st.paso || 0, pasos().length - 1)];
+  const diasOk = () => opciones().dias.filter(d => d.abierto);
+  const franjasDe = (fecha) => (opciones().dias.find(d => d.fecha === fecha)?.franjas || []).filter(f => f.disponible);
+  const franjaObj = () => franjasDe(st.fecha).find(f => f.id === st.franja);
+  const radio = (on, attrs, inner, extra = '') => `<button type="button" class="opt${extra}" role="radio" aria-checked="${on}" ${attrs}><span class="opt__punto" aria-hidden="true"></span>${inner}</button>`;
 
   function calc() {
     const p = torta(); if (!p || !st.variante) return null;
@@ -191,96 +206,100 @@ function encargos(kit) {
     return { total: pl.precio, sena, resto: pl.precio - sena, detalle: pl.detalle };
   }
 
-  function pintarCaja(cae) {
-    const p = torta();
-    if (!p) return;
+  function pintarCaja(nueva) {
+    const p = torta(); if (!p) return;
     $('[data-c-nombre]').textContent = p.nombre;
-    $('[data-t-nombre]').textContent = p.nombre;
-    $('[data-c-desc]').textContent = p.descripcion || '';
     const foto = $('[data-c-foto]');
     if (foto.getAttribute('src') !== kit.asset(p.foto)) foto.src = kit.asset(p.foto);
-    if (cae) { const pl = $('[data-plato]'); pl.classList.remove('cae'); void pl.offsetWidth; pl.classList.add('cae'); }
-    // tamaños
+    if (st.fecha && !diasOk().some(d => d.fecha === st.fecha)) { st.fecha = ''; st.franja = ''; }
+    if (st.franja && !franjaObj()) st.franja = '';
+    const L = pasos(), act = pasoAct(), i = L.indexOf(act);
+    // progreso
+    $('[data-prog-txt]').innerHTML = `Paso ${i + 1} de ${L.length} · <b>${NOMBRE_PASO[act]}</b>`;
+    $('[data-prog]').innerHTML = L.map((x, j) => `<span class="${j < i ? 'hecho' : j === i ? 'actual' : ''}"></span>`).join('');
+    $$('.paso', caja).forEach(el => { el.hidden = el.dataset.paso !== act; });
+    // 1 · tamaño (los círculos muestran la diferencia de tamaño)
     const vs = (p.variantes || []).filter(v => v.precio != null);
-    $('[data-c-tamanos]').innerHTML = vs.map(v => `<button type="button" class="tam" role="radio" aria-checked="${st.variante === v.id}" data-tam="${esc(v.id)}">${esc(v.nombre)} · ${money(v.precio)}</button>`).join('');
-    $('[data-plato]').classList.toggle('t24', st.variante === '24' || (vs.length === 1));
-    // macarons (si la torta los acepta)
-    const mac = (p.adicionales || []).find(a => a.id === 'macarons');
-    const extra = $('[data-c-extra]');
-    extra.hidden = !mac;
-    $('[data-c-mac]').checked = !!(mac && st.mac);
+    $('[data-c-desc]').textContent = vs.length === 1 ? `Esta viene en un solo tamaño: ${vs[0].nombre}.` : (p.descripcion || '');
+    $('[data-c-tamanos]').innerHTML = vs.map(v => radio(st.variante === v.id, `data-tam="${esc(v.id)}"`,
+      `<span class="tamvis" style="--d:${Math.max(26, Math.min(62, Math.round((parseInt(v.nombre) - 16) * 5 + 18))) || 44}px" aria-hidden="true"></span><span class="opt__txt"><b>${esc(v.nombre)}</b><small>de diámetro</small></span><span class="opt__precio">${money(v.precio)}</span>`, ' opt--tam')).join('');
+    // 2 · macarons
+    const mac = macDe(p);
     if (mac) {
-      const precios = mac.precios || {};
-      $('[data-c-mac-precio]').textContent = st.variante && precios[st.variante] != null ? `+${money(precios[st.variante])}` : Object.values(precios).map(money).join(' / ');
+      const pm = mac.precios && st.variante ? mac.precios[st.variante] : mac.precio;
+      $('[data-c-macs]').innerHTML =
+        radio(st.mac === false, 'data-mac="no"', '<span class="opt__txt"><b>No, así está bien</b></span><span class="opt__precio">sin costo</span>') +
+        radio(st.mac === true, 'data-mac="si"', `<img class="opt__img" src="img/macaron.webp" alt="" width="400" height="353"><span class="opt__txt"><b>Sí, con macarons</b></span><span class="opt__precio">${pm != null ? '+ ' + money(pm) : ''}</span>`);
     }
-    $('.caja__vis').classList.toggle('con-mac', !!(mac && st.mac));
-    // calendario y franjas
-    pintarCal(); pintarFranjas();
-    // cartelito
-    $('[data-t-tam]').textContent = st.variante ? `${vs.find(v => v.id === st.variante)?.nombre || ''}${st.mac ? ' + macarons' : ''}` : 'elegí el tamaño';
-    $('[data-t-fecha]').textContent = st.fecha ? `${fechaCorta(st.fecha)}${st.franja ? ` · ${franjaTxt()}` : ''}` : 'y la datita';
-    const c = calc();
+    // 3 · día (lista de fechas en palabras, sin calendario)
+    const dias = diasOk(), cuantos = st.masDias ? 14 : 5;
+    const dd = Math.round((opciones().horas || 0) / 24);
+    $('[data-c-primero]').textContent = `${dd ? `Necesitamos ${dd} días para prepararla, por eso la primera fecha es el ${fechaLarga(dias[0]?.fecha || '2026-01-01').toLowerCase()}. ` : ''}Lunes y martes el local está cerrado.`;
+    $('[data-c-dias]').innerHTML = dias.slice(0, cuantos).map((d, j) => radio(st.fecha === d.fecha, `data-dia="${d.fecha}"`, `<span class="opt__txt"><b>${fechaLarga(d.fecha)}</b>${j === 0 ? '<small>La primera fecha disponible</small>' : ''}</span>`)).join('') || '<p class="paso__ayuda">No hay fechas disponibles. Escribinos por WhatsApp.</p>';
+    $('[data-c-mas]').hidden = st.masDias || dias.length <= cuantos;
+    // 4 · horario
+    $('[data-c-dia-elegido]').textContent = st.fecha ? `Para el ${fechaLarga(st.fecha).toLowerCase()}, en Melincué 3142.` : '';
+    $('[data-c-franjas]').innerHTML = franjasDe(st.fecha).map(f => radio(st.franja === f.id, `data-franja="${esc(f.id)}"`, `<span class="opt__txt"><b>${esc(f.nombre)}</b><small>de ${hs(f.desde)} a ${hs(f.hasta)} h</small></span>`)).join('');
+    // 5 · resumen
+    const c = calc(), fr = franjaObj();
+    const v = vs.find(x => x.id === st.variante);
+    $('[data-c-resumen]').innerHTML = [
+      ['Torta', p.nombre], ['Tamaño', v ? v.nombre : '—'], ...(mac ? [['Macarons', st.mac ? 'Sí' : 'No']] : []),
+      ['Retiro', st.fecha ? `${fechaLarga(st.fecha)}${fr ? `, de ${hs(fr.desde)} a ${hs(fr.hasta)} h` : ''}` : '—'], ['Dónde', 'Melincué 3142, Villa del Parque'],
+    ].map(([k, x]) => `<div><dt>${k}</dt><dd>${esc(x)}</dd></div>`).join('');
     $('[data-c-total]').textContent = c ? money(c.total) : '—';
     $('[data-c-sena]').textContent = c ? money(c.sena) : '—';
     $('[data-c-resto]').textContent = c ? money(c.resto) : '—';
-    $('[data-paso="1"]').classList.toggle('hecho', !!st.variante);
-    $('[data-paso="2"]').classList.toggle('hecho', !!(st.fecha && st.franja));
-    $('[data-paso="3"]').classList.toggle('hecho', false);
-    const msg = $('[data-c-msg]'); if (msg.dataset.fijo !== '1') msg.textContent = '';
+    // botones
+    const volver = $('[data-c-volver]'), seguir = $('[data-c-seguir]');
+    volver.classList.toggle('es-oculto', i === 0);
+    volver.tabIndex = i === 0 ? -1 : 0;
+    seguir.textContent = act === 'ok' ? (c ? `Agregar a mi pedido` : 'Agregar a mi pedido') : 'Siguiente';
+    seguir.classList.toggle('btn--chicle', act === 'ok');
+    const msg = $('[data-c-msg]'); if (!nueva || msg.dataset.fijo !== '1') msg.textContent = '';
   }
 
-  function pintarCal() {
-    const op = opciones();
-    const dias = op.dias;
-    if (!dias.length) { $('[data-cal]').innerHTML = ''; return; }
-    const estado = (d) => d.abierto ? 'ok' : d.franjas.length ? 'pronto' : 'cerrado';
-    if (st.fecha && !dias.some(d => d.fecha === st.fecha && d.abierto)) { st.fecha = ''; st.franja = ''; }
-    const lunesOffset = (dias[0].dow + 6) % 7;
-    const filas = Math.min(4, Math.ceil((lunesOffset + dias.length) / 7));
-    const prim = dias.find(d => d.abierto)?.fecha;
-    const dd = Math.round((op.horas || 0) / 24);
-    $('[data-c-primero]').textContent = prim ? `Desde el ${fechaCorta(prim)}${dd ? ` (necesitamos ${dd} días)` : ''}` : '';
-    const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-    const vis = dias.slice(0, filas * 7 - lunesOffset);
-    const m1 = Number(vis[0].fecha.slice(5, 7)), m2 = Number(vis[vis.length - 1].fecha.slice(5, 7));
-    let h = `<span class="cal__mes">${meses[m1 - 1]}${m2 !== m1 ? ` · ${meses[m2 - 1]}` : ''}</span>` + ['L', 'M', 'M', 'J', 'V', 'S', 'D'].map(d => `<span class="cal__dow" aria-hidden="true">${d}</span>`).join('');
-    for (let i = 0; i < lunesOffset; i++) h += '<span class="cal__d cal__d--pasado" aria-hidden="true"></span>';
-    vis.forEach(d => {
-      const n = Number(d.fecha.slice(8, 10)), on = st.fecha === d.fecha, e = estado(d);
-      const tit = e === 'cerrado' ? 'Cerrado' : e === 'pronto' ? `Necesitamos ${dd || 'unos'} días para prepararla` : `Retirar el ${fechaCorta(d.fecha)}`;
-      h += `<button type="button" class="cal__d cal__d--${e}" data-dia="${d.fecha}" ${e === 'ok' ? '' : 'disabled'} aria-pressed="${on}" aria-label="${esc(tit)}" title="${esc(tit)}">${n}</button>`;
-    });
-    $('[data-cal]').innerHTML = h;
+  function irA(delta) {
+    const L = pasos(), i = L.indexOf(pasoAct()), act = L[i];
+    if (delta > 0) {
+      const falta = act === 'tam' && !st.variante ? 'Tocá uno de los dos tamaños para seguir.'
+        : act === 'mac' && st.mac == null ? 'Elegí si la querés con macarons o sin.'
+        : act === 'dia' && !st.fecha ? 'Tocá el día en que la pasás a buscar.'
+        : act === 'hora' && !st.franja ? 'Tocá el horario en que la pasás a buscar.' : '';
+      if (falta) return error(falta);
+      if (act === 'ok') return sumar($('[data-c-seguir]'));
+    }
+    st.paso = Math.max(0, Math.min(L.length - 1, i + delta));
+    pintarCaja();
+    const sc = $('[data-c-scroll]'); sc.scrollTop = 0;
+    const t = $('.paso:not([hidden]) .paso__t', caja); t?.focus({ preventScroll: true });
+    if (esDesk()) { const r = caja.getBoundingClientRect(); if (r.top < 0) caja.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' }); }
   }
-  function pintarFranjas() {
-    const op = opciones();
-    const dia = op.dias.find(d => d.fecha === st.fecha) || op.dias.find(d => d.abierto);
-    const fr = dia ? dia.franjas : [];
-    if (st.franja && !fr.some(f => f.id === st.franja && f.disponible)) st.franja = '';
-    $('[data-c-franjas]').innerHTML = fr.map(f => `<button type="button" class="franja" role="radio" data-franja="${esc(f.id)}" aria-checked="${st.franja === f.id}" ${st.fecha && f.disponible ? '' : 'disabled'} title="${esc(f.nombre)}">${hs(f.desde)} a ${hs(f.hasta)} h</button>`).join('');
-  }
-  const franjaTxt = () => { const d = opciones().dias.find(x => x.fecha === st.fecha); const f = d?.franjas.find(x => x.id === st.franja); return f ? `${hs(f.desde)} a ${hs(f.hasta)} h` : ''; };
 
   caja.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-tam]'); if (t) { st.variante = t.dataset.tam; pintarCaja(); escribe(); return; }
-    const d = e.target.closest('[data-dia]'); if (d && !d.disabled) { st.fecha = d.dataset.dia; pintarCaja(); escribe(); return; }
-    const f = e.target.closest('[data-franja]'); if (f && !f.disabled) { st.franja = f.dataset.franja; pintarCaja(); escribe(); return; }
-    if (e.target.closest('[data-c-sumar]')) sumar(e.target.closest('[data-c-sumar]'));
+    const t = e.target.closest('[data-tam]'); if (t) { st.variante = t.dataset.tam; return pintarCaja(); }
+    const m = e.target.closest('[data-mac]'); if (m) { st.mac = m.dataset.mac === 'si'; return pintarCaja(); }
+    const d = e.target.closest('[data-dia]'); if (d) { if (st.fecha !== d.dataset.dia) st.franja = ''; st.fecha = d.dataset.dia; return pintarCaja(); }
+    const f = e.target.closest('[data-franja]'); if (f) { st.franja = f.dataset.franja; return pintarCaja(); }
+    if (e.target.closest('[data-c-mas]')) { st.masDias = true; pintarCaja(); return; }
+    if (e.target.closest('[data-c-volver]')) return irA(-1);
+    if (e.target.closest('[data-c-seguir]')) return irA(1);
   });
-  $('[data-c-mac]').addEventListener('change', (e) => { st.mac = e.target.checked; pintarCaja(); escribe(); });
-  function escribe() { const c = $('.cartelito'); c.classList.remove('escribe'); void c.offsetWidth; c.classList.add('escribe'); }
+  // flechas dentro de cada grupo de opciones
+  caja.addEventListener('keydown', (e) => {
+    if (!['ArrowDown', 'ArrowUp', 'ArrowRight', 'ArrowLeft'].includes(e.key) || !e.target.classList.contains('opt')) return;
+    const ops = $$('.opt', e.target.parentElement), k = ops.indexOf(e.target) + (/Down|Right/.test(e.key) ? 1 : -1);
+    const n = ops[(k + ops.length) % ops.length]; e.preventDefault(); n.click(); $$('.opt', e.target.parentElement)[(k + ops.length) % ops.length]?.focus();
+  });
 
   function error(txt) { const m = $('[data-c-msg]'); m.textContent = txt; m.classList.remove('shake'); void m.offsetWidth; m.classList.add('shake'); }
   function sumar(btn) {
-    const p = torta(); if (!p) return error('Elegí una torta del catálogo.');
-    if (!st.variante) return error('Elegí el tamaño.');
-    if (!st.fecha) return error('Elegí la datita de retiro.');
-    if (!st.franja) return error('Elegí el horario de retiro.');
+    const p = torta(); if (!p) return error('Elegí una torta de la lista.');
+    if (!st.variante || !st.fecha || !st.franja) return error('Falta completar algún paso.');
     kit.carrito.setRetiro({ fecha: st.fecha, franja: st.franja });
     kit.carrito.agregar(p.id, 1, { variante: st.variante, extras: st.mac ? ['macarons'] : [], origen: btn });
-    $('[data-paso="3"]').classList.add('hecho');
     mmm(btn);
-    setTimeout(() => { abrirCaja(false); setTimeout(() => kit.carrito.abrir(), esDesk() ? 0 : 380); }, 650);
+    setTimeout(() => { abrirCaja(false); st.paso = 0; st.mac = null; st.variante = ((p.variantes || []).filter(v => v.precio != null).length === 1) ? st.variante : null; pintarCaja(); setTimeout(() => kit.carrito.abrir(), esDesk() ? 0 : 380); }, 650);
   }
 
   grid.addEventListener('click', (e) => { const b = e.target.closest('[data-torta]'); if (b) elegir(b.dataset.torta, true); });
@@ -302,9 +321,8 @@ function encargos(kit) {
     [productos, categorias] = await Promise.all([store.getProductos(), store.getCategorias()]);
     tortas = productos.filter(p => ENCARGO.includes(p.categoria));
     pintarGrid(false);
-    if (!st.sel) { st.sel = (tortas.find(p => p.id === 't-marquise-pistacho') || tortas[0])?.id; }
-    pintarCaja();
-    $$('.torta', grid).forEach(b => b.classList.toggle('is-on', b.dataset.torta === st.sel));
+    if (!st.sel) elegir((tortas.find(p => p.id === 't-marquise-pistacho') || tortas[0])?.id, false);
+    else { pintarCaja(); $$('.torta', grid).forEach(b => b.classList.toggle('is-on', b.dataset.torta === st.sel)); }
   }
   store.onChange(cargar);
   return cargar();
