@@ -1,102 +1,139 @@
-/* ============ VERSIONES DEL HERO (?hero=a…e) — se elige una y el resto se borra ============
-   b = actual (una torta + chica). Lo que no usa cada versión queda oculto. */
-.arco--a, .arco--c, .arco--local, .desfile, .fondo-arco { display: none; }
+/* ============ VERSIONES DEL HERO (?hero=b, f…j) — se elige una y el resto se borra ============ */
+html[data-hero] .hero[data-v] { display: none; }
+html[data-hero="b"] .hero[data-v="b"], html[data-hero="f"] .hero[data-v="f"], html[data-hero="g"] .hero[data-v="g"],
+html[data-hero="h"] .hero[data-v="h"], html[data-hero="i"] .hero[data-v="i"], html[data-hero="j"] .hero[data-v="j"] { display: flex; }
 
-/* piezas compartidas */
-.d-arco { position: relative; flex: none; margin: 0; width: var(--dw, 150px); aspect-ratio: 176 / 236; border-radius: 999px 999px 18px 18px; overflow: hidden; border: 3px solid var(--tinta); background: var(--crema); }
-.d-arco img { width: 100%; height: 100%; object-fit: cover; }
-.d-arco figcaption { position: absolute; left: 8px; right: 8px; bottom: 8px; background: var(--crema); border: 2px solid var(--tinta); border-radius: 10px; padding: 4px 8px; font: 700 12px/1.25 var(--f-txt); text-align: center; }
-.desfile { position: absolute; left: 50%; width: 100vw; translate: -50% 0; overflow: hidden; }
-.desfile__pista { display: flex; gap: 16px; width: max-content; padding: 0 8px; animation: desfile 46s linear infinite; }
-@keyframes desfile { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .desfile__pista { animation: none; } }
-.fondo-arco { position: absolute; aspect-ratio: 176 / 236; border-radius: 999px 999px 0 0; background: var(--salvia); border: 3px solid var(--tinta); border-bottom: 0; }
-.js .desfile, .js .fondo-arco { opacity: 0; }
-.listo .desfile, .listo .fondo-arco { opacity: 1; transition: opacity .8s .1s; }
-
-/* ---------- textos centrados (A y D) ---------- */
-html[data-hero="a"] .hero__in, html[data-hero="d"] .hero__in { text-align: center; justify-items: center; }
-html[data-hero="a"] .hero__lead, html[data-hero="d"] .hero__lead { margin-inline: auto; }
-html[data-hero="a"] .hero__ctas, html[data-hero="d"] .hero__ctas { width: 100%; }
-
-/* ================= A · VIDRIERA SIMÉTRICA: tres arcos iguales y la chica al medio ================= */
-html[data-hero="a"] .arco--a, html[data-hero="a"] .arco--c { display: block; }
-html[data-hero="a"] .hero__arte { height: clamp(270px, 76vw, 360px); width: 100%; max-width: 520px; justify-self: center; }
-html[data-hero="a"] .arco { width: 36%; transform: none; }
-html[data-hero="a"] .arco figcaption { display: none; }
-html[data-hero="a"] .arco--a { left: 0; top: 9%; transform: rotate(-5deg); }
-html[data-hero="a"] .arco--b { left: 32%; top: 0; }
-html[data-hero="a"] .arco--c { left: auto; right: 0; top: 9%; transform: rotate(5deg); }
-html[data-hero="a"] .hero__chica { left: 50%; width: 74%; translate: -50% 0; }
-html[data-hero="a"].js:not(.listo) .hero__chica { translate: -50% 26px; }
-html[data-hero="a"] .hero__mmm { right: -2%; top: -6px; }
-
-/* ================= C · SOLO EL PERSONAJE: la chica grande sobre un arco verde ================= */
-html[data-hero="c"] .arco--b { display: none; }
-html[data-hero="c"] .fondo-arco { display: block; left: 50%; translate: -50% 0; bottom: 0; width: 64%; }
-html[data-hero="c"] .hero__arte { height: clamp(300px, 92vw, 430px); width: 100%; max-width: 520px; justify-self: center; }
-html[data-hero="c"] .hero__chica { left: 50%; width: 94%; max-width: none; translate: -50% 0; bottom: -6px; }
-html[data-hero="c"].js:not(.listo) .hero__chica { translate: -50% 26px; }
-html[data-hero="c"] .hero__mmm { right: 4%; top: 6%; }
-
-/* ================= D · DESFILE DE TORTAS: una cinta de arcos pasa detrás de la chica ================= */
-html[data-hero="d"] .arco--b { display: none; }
-html[data-hero="d"] .desfile { display: block; top: 0; --dw: 34vw; }
-html[data-hero="d"] .hero__arte { height: clamp(290px, 80vw, 400px); width: 100%; }
-html[data-hero="d"] .hero__chica { left: 50%; width: 76%; max-width: 420px; translate: -50% 0; }
-html[data-hero="d"].js:not(.listo) .hero__chica { translate: -50% 26px; }
-html[data-hero="d"] .hero__mmm { right: 4%; top: auto; bottom: 34%; }
-
-/* ================= E · EL LOCAL: la vidriera real (con la chica dibujada en el vidrio) en un arco ================= */
-html[data-hero="e"] .arco--b, html[data-hero="e"] .hero__chica { display: none; }
-html[data-hero="e"] .arco--local { display: block; left: 50%; translate: -50% 0; top: 0; width: 76%; transform: none; }
-html[data-hero="e"] .arco--local img { object-position: 50% 30%; }
-html[data-hero="e"] .arco--local figcaption { right: auto; left: 12px; top: auto; bottom: 12px; rotate: -2deg; }
-html[data-hero="e"] .hero__arte { height: clamp(380px, 106vw, 500px); width: 100%; max-width: 440px; justify-self: center; }
-html[data-hero="e"] .hero__mmm { right: 0; top: 4%; }
-
+/* base común */
+.hv { flex-direction: column; min-height: 100vh; min-height: 100svh; overflow: hidden; position: relative; }
+.hv__in { flex: 1; position: relative; width: 100%; max-width: calc(var(--max) + 2 * var(--gut)); margin: 0 auto; padding: calc(var(--barra) + env(safe-area-inset-top) + 16px) var(--gut) 0; display: grid; min-height: 0; }
+.hv__txt { display: grid; gap: 16px; align-content: center; justify-items: start; position: relative; z-index: 2; }
+.hv__t { font: 800 clamp(29px, 8.4vw, 64px)/1.03 var(--f-tit); letter-spacing: -.02em; }
+.hv .hero__lead { margin: 0; font-size: 16px; line-height: 1.55; max-width: 30em; }
+.hv .hero__kicker, .hv .hero__lead, .hv .hero__ctas { grid-area: auto; }
+.hv .hero__kicker { margin: 0; }
+.hv .hero__ctas { margin: 0; width: 100%; }
+.btn--crema { background: var(--crema); color: var(--tinta); }
+.btn--linea-crema { background: transparent; color: var(--crema); border-color: var(--crema); }
+@media (hover: hover) { .btn--linea-crema:hover { box-shadow: 3px 3px 0 var(--crema); } .btn--crema:hover { box-shadow: var(--sombra); } }
+.pills { display: inline-flex; gap: 6px; }
+.pills > span { height: 30px; padding: 0 14px; border: 2px solid currentColor; border-radius: 999px; display: inline-flex; align-items: center; font: 800 14px/1 var(--f-txt); letter-spacing: .01em; }
+.titulo-sello { color: var(--crema); text-shadow: 3px 3px 0 var(--tinta); }
+.ilus { display: block; height: auto; pointer-events: none; user-select: none; }
+.js .ilus { opacity: 0; translate: 0 40px; }
+.listo .ilus { opacity: 1; translate: 0 0; transition: opacity .6s .3s, translate .9s .3s var(--rebote); }
+@media (min-width: 768px) { .hv .hero__ctas { display: flex; flex-wrap: wrap; width: auto; } }
 @media (min-width: 900px) {
-  /* A y D: texto centrado arriba (título en una línea) y el arte a todo el ancho abajo, apoyado en la marquesina */
-  html[data-hero="a"] .hero__in, html[data-hero="d"] .hero__in { grid-template-areas: "txt" "arte"; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); align-items: start; gap: 22px; padding-top: calc(var(--barra) + 26px); }
-  html[data-hero="a"] .hero__txt, html[data-hero="d"] .hero__txt { justify-items: center; gap: 16px; }
-  html[data-hero="a"] .ren, html[data-hero="d"] .ren { display: inline-block; }
-  html[data-hero="a"] .hero__t, html[data-hero="d"] .hero__t { font-size: clamp(40px, 4.3vw, 68px); }
-  html[data-hero="a"] .hero__lead, html[data-hero="d"] .hero__lead { max-width: 44em; }
-  html[data-hero="a"] .hero__ctas, html[data-hero="d"] .hero__ctas { justify-content: center; }
-  html[data-hero="a"] .hero__arte, html[data-hero="d"] .hero__arte { align-self: stretch; justify-self: stretch; width: auto; max-width: none; height: auto; margin: 0 0 -24px; }
-
-  html[data-hero="a"] .hero__arte { --aw: min(19vw, 290px, calc((100vh - var(--barra) - 360px) / 1.62)); }
-  html[data-hero="a"] .arco { width: var(--aw); top: auto; }
-  html[data-hero="a"] .arco--b { left: calc(50% - var(--aw) / 2); bottom: calc(var(--aw) * .3); }
-  html[data-hero="a"] .arco--a { left: calc(50% - var(--aw) * 1.62); bottom: calc(var(--aw) * .2); }
-  html[data-hero="a"] .arco--c { left: calc(50% + var(--aw) * .62); right: auto; bottom: calc(var(--aw) * .2); }
-  html[data-hero="a"] .arco--a figcaption, html[data-hero="a"] .arco--c figcaption { display: block; left: 12px; right: 12px; top: auto; bottom: 12px; rotate: none; text-align: center; }
-  html[data-hero="a"] .hero__chica { width: calc(var(--aw) * 1.34); bottom: -3px; top: auto; }
-  html[data-hero="a"] .hero__mmm { left: calc(50% + var(--aw) * 1.2); right: auto; top: auto; bottom: calc(var(--aw) * 1.5); }
-
-  html[data-hero="d"] .hero__arte { --aw: min(17vw, 260px, calc((100vh - var(--barra) - 360px) / 1.5)); }
-  html[data-hero="d"] .desfile { --dw: var(--aw); top: auto; bottom: calc(var(--aw) * .22); }
-  html[data-hero="d"] .d-arco figcaption { font-size: 14px; }
-  html[data-hero="d"] .hero__chica { width: calc(var(--aw) * 1.5); max-width: none; bottom: -3px; top: auto; }
-  html[data-hero="d"] .hero__mmm { left: calc(50% + var(--aw) * .7); right: auto; top: auto; bottom: calc(var(--aw) * 1); }
-
-  /* C: columna derecha con el arco verde de fondo y la chica grande delante */
-  html[data-hero="c"] .hero__arte { --aw: min(clamp(250px, 24vw, 380px), calc((100vh - var(--barra) - 130px) / 1.62)); align-self: stretch; height: auto; max-width: none; margin: 0 0 -24px; }
-  html[data-hero="c"] .fondo-arco { width: calc(var(--aw) * 1.2); bottom: 0; }
-  html[data-hero="c"] .hero__chica { width: calc(var(--aw) * 1.55); left: 50%; bottom: -3px; top: auto; }
-  html[data-hero="c"] .hero__mmm { left: calc(50% + var(--aw) * .38); right: auto; top: auto; bottom: calc(var(--aw) * 1.38); }
-
-  /* E: el arco con la vidriera ocupa todo el alto de la columna y apoya en la marquesina */
-  html[data-hero="e"] .hero__arte { --aw: min(clamp(300px, 30vw, 470px), calc((100vh - var(--barra) - 96px) / 1.34)); align-self: stretch; height: auto; max-width: none; margin: 0 0 -24px; }
-  html[data-hero="e"] .arco--local { width: var(--aw); top: auto; bottom: -3px; border-radius: 999px 999px 0 0; box-shadow: none; }
-  html[data-hero="e"] .arco--local figcaption { left: 16px; bottom: 22px; font-size: 15px; padding: 8px 14px; }
-  html[data-hero="e"] .hero__mmm { left: calc(50% + var(--aw) * .36); right: auto; top: auto; bottom: calc(var(--aw) * 1.2); }
+  .hv { height: 100vh; min-height: 640px; }
+  .hv__t { font-size: clamp(44px, 4.6vw, 70px); }
+  .hv .hero__lead { font-size: 18px; }
 }
-/* celu acostado: todas usan la columna compacta */
+
+/* ================= F · AFICHE: franjas rosa / verde como el afiche de la apertura ================= */
+.hv--f { background: var(--crema); }
+.hv--f .hv__in { grid-template-rows: auto minmax(0, 1fr); gap: 10px; padding-bottom: 10px; }
+.hf__top { background: var(--chicle); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 12px 18px; }
+.hf__firma { font: 700 12px/1.35 var(--f-txt); letter-spacing: .08em; text-transform: uppercase; }
+.hf__main { background: var(--salvia); position: relative; display: grid; align-content: start; gap: 18px; padding: 26px 20px 0; overflow: hidden; min-height: 0; }
+.hf__main .hv__t { color: var(--crema); text-shadow: 3px 3px 0 var(--tinta); }
+.hf__mini { font: italic 700 16px/1.25 var(--f-txt); color: var(--crema); }
+.hf__ilus { width: min(100%, 420px); justify-self: center; margin-top: 6px; }
+.hv--f .marquesina { background: var(--chicle); border-top: 0; }
+@media (min-width: 900px) {
+  .hf__top { padding: 14px 28px; }
+  .hf__firma { font-size: 13px; }
+  .hf__main { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); align-content: stretch; align-items: stretch; padding: 0; }
+  .hf__main .hv__t, .hv--j .hv__t { font-size: clamp(40px, 3.9vw, 62px); }
+  .hf__main .hv__txt { padding: clamp(28px, 4vw, 60px); padding-right: 0; align-content: center; gap: 20px; }
+  .hf__ilus { align-self: end; justify-self: center; width: auto; height: auto; max-width: 100%; max-height: 94%; margin: 0; object-fit: contain; object-position: bottom; }
+}
+
+/* ================= G · HOLA: crema, la chica de la cookie sobre un plato rosa ================= */
+.hv--g { background: var(--crema); }
+.hv--g .hv__in { grid-template-rows: auto minmax(280px, 1fr); gap: 18px; overflow: hidden; }
+.hg__t { font-size: clamp(44px, 13vw, 104px); line-height: .98; }
+.hg__sub { font: 700 18px/1.35 var(--f-txt); }
+.hv--g .hv__arte { position: relative; min-height: 0; }
+.hg__plato { position: absolute; left: 50%; bottom: 0; width: min(118%, 640px); aspect-ratio: 1; translate: -50% 52%; border-radius: 50%; background: var(--chicle); border: 3px solid var(--tinta); }
+.hg__ilus { position: absolute; left: 50%; bottom: 0; translate: -50% 0; height: 100%; width: auto; max-width: 96%; object-fit: contain; object-position: bottom; }
+.listo .hg__ilus { translate: -50% 0; }
+.js:not(.listo) .hg__ilus { translate: -50% 40px; }
+.hg__mmm { position: absolute; right: 0; bottom: 34%; rotate: 9deg; z-index: 3; }
+@media (min-width: 900px) {
+  .hv--g .hv__in { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: 40px; }
+  .hv--g .hv__txt { align-self: center; padding-bottom: 40px; gap: 18px; }
+  .hg__t { font-size: clamp(64px, 7.4vw, 118px); }
+  .hg__sub { font-size: 22px; }
+  .hv--g .hv__arte { align-self: stretch; }
+  .hg__plato { width: min(112%, 760px); translate: -50% 50%; }
+  .hg__ilus { height: 92%; }
+  .hg__mmm { height: 50px; font-size: 22px; padding: 0 22px; right: 2%; top: auto; bottom: 34%; }
+}
+
+/* ================= H · DOS CHICAS: el texto al medio y una ilustración a cada lado ================= */
+.hv--h { background: var(--chicle); }
+.hv--h .hv__in { grid-template-rows: auto minmax(200px, 1fr); }
+.hv--h .hv__txt { text-align: center; justify-items: center; align-self: start; padding-top: 6px; }
+.hv--h .hero__lead { margin-inline: auto; }
+.hh__izq, .hh__der { position: absolute; bottom: -2px; }
+.hh__izq { left: 0; width: 48%; }
+.hh__der { right: 0; width: 56%; }
+@media (min-width: 900px) {
+  .hv--h .hv__in { grid-template-rows: minmax(0, 1fr); }
+  .hv--h .hv__txt { align-self: center; max-width: min(660px, 48vw); justify-self: center; padding: 0 0 8vh; gap: 20px; }
+  .hv--h .hv__t { font-size: clamp(36px, 3.7vw, 60px); }
+  .hv--h .hero__ctas { justify-content: center; }
+  .hh__izq { left: max(-20px, calc(50% - 50vw + 8px)); width: clamp(220px, 24vw, 400px); }
+  .hh__der { right: max(-20px, calc(50% - 50vw + 8px)); width: clamp(240px, 27vw, 450px); }
+}
+
+/* ================= I · MILA GIGANTE: la chica se asoma por detrás de las letras ================= */
+.hv--i { background: var(--salvia); }
+.hv--i .hv__in { grid-template-rows: minmax(0, 1fr) auto; gap: 22px; padding-bottom: 22px; }
+.hi__marca { position: relative; align-self: end; justify-self: center; width: 100%; container-type: inline-size; }
+.hi__logo { position: relative; z-index: 1; margin: 39cqw 0 0; }
+.hi__logo img { display: block; width: 100%; height: auto; }
+.hi__ilus { position: absolute; z-index: 2; left: 50%; bottom: 27cqw; width: 40cqw; translate: -50% 0; }
+.js:not(.listo) .hi__ilus { translate: -50% 60px; }
+.listo .hi__ilus { translate: -50% 0; }
+.hi__mmm { position: absolute; z-index: 3; left: 4cqw; top: 10cqw; rotate: -8deg; }
+.hi__pie { display: grid; gap: 16px; }
+.hi__txt { display: grid; gap: 8px; }
+.hi__frase { font: 800 clamp(20px, 5.4vw, 30px)/1.15 var(--f-tit); }
+@media (min-width: 900px) {
+  .hi__marca { width: min(100%, calc((100vh - var(--barra) - 300px) / .6)); }
+  .hi__logo { margin-top: 27cqw; }
+  .hi__ilus { width: 30cqw; bottom: 26cqw; }
+  .hi__mmm { height: 50px; font-size: 22px; padding: 0 22px; left: 14cqw; top: 8cqw; }
+  .hi__pie { grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 32px; }
+  .hi__frase { font-size: clamp(22px, 2.2vw, 32px); }
+}
+
+/* ================= J · MITAD Y MITAD: verde con el texto, rosa con la chica del café ================= */
+.hv--j { background: var(--salvia); }
+.hj__verde { padding: calc(var(--barra) + env(safe-area-inset-top) + 18px) var(--gut) 30px; display: grid; }
+.hj__verde .hv__t { color: var(--crema); text-shadow: 3px 3px 0 var(--tinta); }
+.hj__rosa { position: relative; background: var(--chicle); min-height: 330px; flex: 1; overflow: hidden; border-top: 3px solid var(--tinta); }
+.hj__rosa .pills { position: absolute; left: var(--gut); top: 18px; }
+.hj__ilus { position: absolute; left: 50%; bottom: -2px; width: min(104%, 560px); translate: -50% 0; }
+.js:not(.listo) .hj__ilus { translate: -50% 40px; }
+.listo .hj__ilus { translate: -50% 0; }
+.hj__mmm { position: absolute; right: var(--gut); top: 16px; rotate: 8deg; }
+@media (min-width: 900px) {
+  .hv--j { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; }
+  html[data-hero="j"] .hero[data-v="j"] { display: grid; }
+  .hv--j .marquesina { grid-column: 1 / -1; }
+  .hj__verde { padding: calc(var(--barra) + 24px) clamp(28px, 4vw, 64px) 40px max(var(--gut), calc(50vw - var(--max) / 2)); align-content: center; }
+  .hj__verde .hv__txt { gap: 20px; }
+  .hj__rosa { min-height: 0; border-top: 0; border-left: 3px solid var(--tinta); }
+  .hj__rosa .pills { top: calc(var(--barra) + 24px); left: 32px; }
+  .hj__ilus { width: 112%; max-width: none; left: 52%; }
+  .hj__mmm { height: 50px; font-size: 22px; padding: 0 22px; top: auto; bottom: 66%; right: 10%; }
+}
+/* celu acostado: todas con el texto a mano */
 @media (min-width: 600px) and (max-width: 899px) and (max-height: 520px) {
-  html[data-hero] .hero__arte { height: 240px; }
-  html[data-hero="e"] .hero__arte { height: 300px; }
-  html[data-hero="a"] .hero__in, html[data-hero="d"] .hero__in { text-align: left; justify-items: stretch; }
+  .hv { min-height: 100vh; }
+  .hv .marquesina { display: none; }
 }
-html[data-hero="a"] .estado, html[data-hero="d"] .estado { display: inline-block; }
-html[data-hero="a"] .estado::before, html[data-hero="d"] .estado::before { display: inline-block; margin-right: 8px; vertical-align: 1px; }
+
+.hv--h .estado { display: inline-block; }
+.hv--h .estado::before { display: inline-block; margin-right: 8px; vertical-align: 1px; }
