@@ -24,7 +24,7 @@ async function intro() {
   const el = $('#intro');
   if (!html.classList.contains('con-intro') || !el) { html.classList.add('listo'); return; }
   const k = matchMedia('(min-width: 768px)').matches ? 1 : 0.78;
-  const heroImg = $('.arco--b img');
+  const heroImg = $('.hg__ilus');
   const imgOk = heroImg && !heroImg.complete ? new Promise(r => { heroImg.onload = heroImg.onerror = r; }) : Promise.resolve();
   await Promise.race([Promise.all([document.fonts?.ready, imgOk]), sleep(2600)]);
   el.classList.add('play');

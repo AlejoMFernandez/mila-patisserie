@@ -19,7 +19,6 @@
 <script>
   // intro: se decide antes de pintar (sin parpadeo). Sin JS o con movimiento reducido no hay intro.
   (function () { var d = document.documentElement; d.classList.add('js');
-    var hv = (location.search.match(/[?&]hero=([b-j])/) || [])[1]; d.dataset.hero = hv || 'b';
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]sinintro/.test(location.search)) d.classList.add('con-intro');
     setTimeout(function () { if (!window.__mila) { d.classList.remove('con-intro'); d.classList.add('listo', 'a-salvo'); } }, 4500); })();
 </script>
@@ -27,7 +26,7 @@
 <link rel="preload" href="fonts/zenmaru-medium.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="kit/kit.css?v=3">
 <link rel="stylesheet" href="css/mila.css?v=3">
-<link rel="stylesheet" href="css/heros.css?v=2">
+<link rel="stylesheet" href="css/hero.css?v=1">
 </head>
 <body>
 
@@ -83,55 +82,8 @@
 
 <main id="inicio">
 
-<!-- ===== HERO ===== -->
-<section class="hero" data-v="b" aria-labelledby="hero-t">
-  <div class="hero__in">
-    <div class="hero__txt">
-      <p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p>
-      <h1 id="hero-t" class="hero__t"><span class="ren"><span>tortas, tartas</span></span> <span class="ren"><span>&amp; cheese&shy;cakes</span></span></h1>
-      <p class="hero__lead">Elegí la torta, el tamaño y el día que la pasás a buscar (con 4 días de anticipación), y reservala con una seña del 50% por Mercado Pago.</p>
-      <div class="hero__ctas">
-        <a class="btn btn--tinta" href="#encargos">Encargá tu torta</a>
-        <a class="btn btn--linea" href="#local">Qué hay hoy en el local</a>
-      </div>
-    </div>
-    <div class="hero__arte" aria-hidden="true">
-      <figure class="arco arco--b"><img src="img/tortas/marquise-pistacho.webp" alt="" width="485" height="388" decoding="async" fetchpriority="high"><figcaption>Marquise pistacho</figcaption></figure>
-      <img class="hero__chica" src="img/personaje.webp" alt="" width="900" height="574" decoding="async">
-      <span class="sticker sticker--mmm hero__mmm">mmm</span>
-    </div>
-  </div>
-  <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-  </div></div>
-</section>
-
-<!-- F · AFICHE: franjas como el afiche de la apertura -->
-<section class="hero hv hv--f" data-v="f" aria-labelledby="hf-t">
-  <div class="hv__in">
-    <div class="hf__top"><span class="hf__firma">Pastelería de especialidad hecha x Camila Pulvirenti</span><span class="pills"><span>dulce</span><span>local</span></span></div>
-    <div class="hf__main">
-      <div class="hv__txt">
-        <p class="hf__mini">vení a comer<br>&amp; ser feliz</p>
-        <h1 id="hf-t" class="hv__t"><span class="ren"><span>tortas, tartas</span></span> <span class="ren"><span>&amp; cheesecakes</span></span></h1>
-        <p class="hero__lead">Elegí la torta, el tamaño y el día que la pasás a buscar, y reservala con una seña del 50% por Mercado Pago.</p>
-        <div class="hero__ctas">
-          <a class="btn btn--crema" href="#encargos">Encargá tu torta</a>
-          <a class="btn btn--linea-crema" href="#local">Qué hay hoy en el local</a>
-        </div>
-      </div>
-      <img class="ilus hf__ilus" src="img/chica-alfajor.webp" alt="" width="900" height="724" decoding="async">
-    </div>
-  </div>
-  <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-  </div></div>
-</section>
-
-<!-- G · HOLA: crema, la chica de la cookie gigante sobre un plato rosa -->
-<section class="hero hv hv--g" data-v="g" aria-labelledby="hg-t">
+<!-- ===== HERO: comer & ser feliz, la chica de la cookie sobre un plato rosa ===== -->
+<section class="hero hv hv--g" aria-labelledby="hg-t">
   <div class="hv__in">
     <div class="hv__txt">
       <p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p>
@@ -148,73 +100,6 @@
       <img class="ilus hg__ilus" src="img/chica-cookie.webp" alt="" width="598" height="669" decoding="async">
       <span class="sticker sticker--mmm hg__mmm" aria-hidden="true">mmm</span>
     </div>
-  </div>
-  <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-  </div></div>
-</section>
-
-<!-- H · DOS CHICAS: el texto al medio y una ilustración a cada lado -->
-<section class="hero hv hv--h" data-v="h" aria-labelledby="hh-t">
-  <div class="hv__in">
-    <div class="hv__txt">
-      <p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p>
-      <h1 id="hh-t" class="hv__t"><span class="ren"><span>tortas, tartas</span></span> <span class="ren"><span>&amp; cheesecakes</span></span></h1>
-      <p class="hero__lead">Elegí la torta, el tamaño y el día que la pasás a buscar, y reservala con una seña del 50% por Mercado Pago.</p>
-      <div class="hero__ctas">
-          <a class="btn btn--tinta" href="#encargos">Encargá tu torta</a>
-          <a class="btn btn--linea" href="#local">Qué hay hoy en el local</a>
-        </div>
-    </div>
-    <img class="ilus hh__izq" src="img/chica-cookie.webp" alt="" width="598" height="669" decoding="async">
-    <img class="ilus hh__der" src="img/personaje.webp" alt="" width="900" height="574" decoding="async">
-  </div>
-  <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-  </div></div>
-</section>
-
-<!-- I · MILA GIGANTE: la chica se asoma por detrás de las letras -->
-<section class="hero hv hv--i" data-v="i" aria-labelledby="hi-t">
-  <div class="hv__in">
-    <div class="hi__marca">
-      <img class="ilus hi__ilus" src="img/chica-cookie.webp" alt="" width="598" height="669" decoding="async">
-      <h1 id="hi-t" class="hi__logo"><img src="img/logo-crema.svg" alt="MILA, pastelería de especialidad" width="1352" height="445"></h1>
-      <span class="sticker sticker--mmm hi__mmm" aria-hidden="true">mmm</span>
-    </div>
-    <div class="hi__pie">
-      <div class="hi__txt"><p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p><p class="hi__frase">Tortas, tartas &amp; cheesecakes por encargo.</p><p class="hero__lead">Elegí la torta, el tamaño y el día que la pasás a buscar, y reservala con una seña del 50% por Mercado Pago.</p></div>
-      <div class="hero__ctas">
-          <a class="btn btn--crema" href="#encargos">Encargá tu torta</a>
-          <a class="btn btn--linea-crema" href="#local">Qué hay hoy en el local</a>
-        </div>
-    </div>
-  </div>
-  <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-    <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>
-  </div></div>
-</section>
-
-<!-- J · MITAD Y MITAD: bloque verde con el texto, bloque rosa con la chica del café -->
-<section class="hero hv hv--j" data-v="j" aria-labelledby="hj-t">
-  <div class="hj__verde">
-    <div class="hv__txt">
-      <p class="hero__kicker"><span class="estado" data-estado>Melincué 3142 · Villa del Parque</span></p>
-      <h1 id="hj-t" class="hv__t"><span class="ren"><span>tortas, tartas</span></span> <span class="ren"><span>&amp; cheesecakes</span></span></h1>
-      <p class="hero__lead">Elegí la torta, el tamaño y el día que la pasás a buscar, y reservala con una seña del 50% por Mercado Pago.</p>
-      <div class="hero__ctas">
-          <a class="btn btn--crema" href="#encargos">Encargá tu torta</a>
-          <a class="btn btn--linea-crema" href="#local">Qué hay hoy en el local</a>
-        </div>
-    </div>
-  </div>
-  <div class="hj__rosa">
-    <span class="pills"><span>dulce</span><span>local</span></span>
-    <img class="ilus hj__ilus" src="img/personaje.webp" alt="" width="900" height="574" decoding="async">
-    <span class="sticker sticker--mmm hj__mmm" aria-hidden="true">mmm</span>
   </div>
   <div class="marquesina" aria-hidden="true"><div class="marquesina__pista">
     <span>comer &amp; ser feliz</span><i>•</i><span>tortas por encargo</span><i>•</i><span>crumbl cookies</span><i>•</i><span>sin TACC</span><i>•</i><span>café de especialidad</span><i>•</i>

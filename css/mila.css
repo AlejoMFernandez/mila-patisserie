@@ -129,25 +129,10 @@ button { font: inherit; color: inherit; }
   .cajita-btn__txt { display: inline; }
 }
 
-/* ================= HERO ================= */
-.hero { background: var(--chicle); min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-.hero__in { flex: 1; display: grid; grid-template-areas: "kick" "t" "arte" "lead" "ctas"; align-content: start; padding: calc(var(--barra) + env(safe-area-inset-top) + 14px) var(--gut) 18px;
-  width: 100%; max-width: calc(var(--max) + 2 * var(--gut)); margin: 0 auto; }
-.hero__txt { display: contents; }
-.hero__kicker { grid-area: kick; margin-bottom: 10px; }
-.hero__t { grid-area: t; font: 800 clamp(30px, 8.9vw, 96px)/1.03 var(--f-tit); letter-spacing: -.02em; }
+/* ================= HERO (la composición está en hero.css) ================= */
+.hero { position: relative; }
 .ren { display: block; overflow: hidden; padding-bottom: .06em; }
 .ren > span { display: inline-block; }
-.hero__lead { grid-area: lead; font-size: 16px; line-height: 1.55; margin-top: 12px; max-width: 30em; }
-.hero__ctas { grid-area: ctas; display: grid; gap: 10px; margin-top: 16px; }
-.hero__arte { grid-area: arte; position: relative; height: clamp(300px, 88vw, 420px); margin: 14px 0 0; }
-/* una sola torta en arco + la chica superpuesta abajo a la izquierda; el conjunto queda centrado */
-.arco { position: absolute; margin: 0; aspect-ratio: 176 / 236; border-radius: 999px 999px 20px 20px; overflow: hidden; border: 3px solid var(--tinta); background: var(--crema); box-shadow: var(--sombra); }
-.arco img { width: 100%; height: 100%; object-fit: cover; }
-.arco figcaption { position: absolute; right: 10px; top: 46%; background: var(--crema); border: 2px solid var(--tinta); border-radius: 12px; padding: 6px 10px; font: 700 13px/1.25 var(--f-txt); rotate: 3deg; }
-.arco--b { width: 54%; left: 37%; top: 0; transform: rotate(3deg); z-index: 2; }
-.hero__chica { position: absolute; left: 0; bottom: -6px; width: 64%; max-width: 420px; z-index: 3; }
-.hero__mmm { position: absolute; right: 0; top: -2px; z-index: 4; transform: rotate(10deg); }
 .estado { display: inline-flex; align-items: center; gap: 8px; font: 700 12px/1.3 var(--f-txt); letter-spacing: .1em; text-transform: uppercase; }
 .estado::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--tinta); flex: none; }
 .estado.abierto::before { background: #2f7d32; box-shadow: 0 0 0 3px rgba(47,125,50,.25); animation: late 2s infinite; }
@@ -156,62 +141,23 @@ button { font: inherit; color: inherit; }
 .marquesina__pista { display: flex; gap: 28px; align-items: center; white-space: nowrap; font: 800 17px/1 var(--f-tit); padding-left: 28px; animation: marquesina 32s linear infinite; }
 .marquesina__pista i { font-style: normal; }
 @keyframes marquesina { to { transform: translateX(-50%); } }
-
-@media (min-width: 768px) {
-  .hero__ctas { display: flex; flex-wrap: wrap; }
-  .hero__arte { height: 460px; max-width: 520px; width: 100%; justify-self: center; }
-}
 @media (min-width: 900px) {
-  .hero { height: 100vh; min-height: 640px; }
-  .hero__in { grid-template-areas: "txt arte"; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); align-content: stretch; align-items: center; gap: 32px; padding-top: calc(var(--barra) + 8px); padding-bottom: 24px; min-height: 0; }
-  .hero__txt { display: grid; gap: 22px; grid-area: txt; align-content: center; }
-  .hero__kicker, .hero__t, .hero__lead, .hero__ctas { grid-area: auto; margin: 0; }
-  .hero__t { font-size: clamp(40px, 4.3vw, 62px); }
-  .hero__lead { font-size: 18px; max-width: 30em; }
-  /* el arte ocupa todo el alto de la columna: la chica apoyada en la marquesina y las tortas justo arriba de ella */
-  /* desktop: el arte ocupa todo el alto de la columna; la chica apoyada en la marquesina, la torta grande detrás a la derecha */
-  .hero__arte { --aw: min(clamp(250px, 23vw, 380px), calc((100vh - var(--barra) - 170px) / 1.66)); align-self: stretch; height: auto; min-height: 0; max-width: none; width: auto; margin: 0 0 -24px; }
-  .arco--b { width: var(--aw); left: calc(50% - var(--aw) * .16); top: auto; bottom: calc(var(--aw) * .3); }
-  .arco figcaption { right: 14px; top: auto; bottom: calc(var(--aw) * .42); padding: 8px 14px; font-size: 15px; border-radius: 14px; }
-  .hero__chica { width: calc(var(--aw) * 1.18); max-width: none; left: calc(50% - var(--aw) * .86); top: auto; bottom: -3px; }
-  .hero__mmm { height: 48px; font-size: 22px; padding: 0 22px; right: auto; left: calc(50% + var(--aw) * .84 - 118px); top: auto; bottom: calc(var(--aw) * 1.62); }
   .marquesina { height: 62px; }
   .marquesina__pista { font-size: 22px; gap: 40px; }
-}
-@media (min-width: 1600px) and (min-height: 980px) { .hero__t { font-size: 66px; } .hero__lead { font-size: 20px; } }
-/* celu acostado: dos columnas compactas para que el botón quede a mano */
-@media (min-width: 600px) and (max-width: 899px) and (max-height: 520px) {
-  .hero__in { grid-template-areas: "kick arte" "t arte" "lead arte" "ctas arte"; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); column-gap: 24px; align-content: center; }
-  .hero__t { font-size: 30px; }
-  .hero__lead { font-size: 15px; }
-  .hero__ctas { display: flex; }
-  .hero__ctas .btn { min-height: 46px; padding: 0 18px; }
-  .hero__arte { height: 240px; margin: 0; align-self: center; }
-  .arco figcaption { display: none; }
-  .marquesina { display: none; }
 }
 
 /* entrada del hero (después de la intro) */
 .js .barra { transform: translateY(-110%); }
 .js .ren > span { transform: translateY(108%); }
-.js .hero__kicker, .js .hero__lead, .js .hero__ctas > * { opacity: 0; transform: translateY(14px); }
-.js .arco img { clip-path: inset(100% 0 0 0); transform: scale(1.15); }
-.js .arco { opacity: 0; }
-.js .hero__chica { opacity: 0; translate: 0 26px; }
-.js .hero__mmm { opacity: 0; scale: .2; }
+.js .hero__kicker, .js .hero__lead, .js .hero__ctas > *, .js .hg__sub { opacity: 0; transform: translateY(14px); }
 .listo .barra { transform: none; }
 .listo .ren > span { transform: none; transition: transform .8s var(--ease); }
 .listo .ren:nth-child(2) > span { transition-delay: .09s; }
-.listo .hero__kicker, .listo .hero__lead, .listo .hero__ctas > * { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.listo .hero__kicker, .listo .hero__lead, .listo .hero__ctas > *, .listo .hg__sub { opacity: 1; transform: none; transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.listo .hg__sub { transition-delay: .18s; }
 .listo .hero__lead { transition-delay: .25s; }
 .listo .hero__ctas > :nth-child(1) { transition-delay: .33s; }
 .listo .hero__ctas > :nth-child(2) { transition-delay: .41s; }
-.listo .arco { opacity: 1; transition: opacity .3s; }
-.listo .arco img { clip-path: inset(0 0 0 0); transform: none; transition: clip-path .9s var(--ease), transform 1.2s var(--ease); }
-.listo .arco--b, .listo .arco--b img { transition-delay: .12s; }
-.listo .arco--c, .listo .arco--c img { transition-delay: .22s; }
-.listo .hero__chica { opacity: 1; translate: 0 0; transition: opacity .6s .45s, translate .8s .45s var(--rebote); }
-.listo .hero__mmm { opacity: 1; scale: 1; transition: opacity .3s .8s, scale .5s .8s var(--rebote); }
 
 /* ================= ENCARGOS ================= */
 .encargos { background: var(--crema); }
