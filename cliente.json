@@ -2,6 +2,7 @@
  "$schema": "https://raw.githubusercontent.com/AlejoMFernandez/kit-demos/main/docs/cliente.schema.json",
  "id": "mila-patisserie",
  "nombre": "MILA",
+ "instagram": "milapatisserie",
  "pais": "AR",
  "idioma": "es",
  "modo": "demo",
