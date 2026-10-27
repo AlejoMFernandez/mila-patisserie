@@ -19,6 +19,7 @@
 <script>
   // intro: se decide antes de pintar (sin parpadeo). Sin JS o con movimiento reducido no hay intro.
   (function () { var d = document.documentElement; d.classList.add('js');
+    var hv = (location.search.match(/[?&]hero=([a-e])/) || [])[1]; d.dataset.hero = hv || 'b';
     if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !/[?&]sinintro/.test(location.search)) d.classList.add('con-intro');
     setTimeout(function () { if (!window.__mila) { d.classList.remove('con-intro'); d.classList.add('listo', 'a-salvo'); } }, 4500); })();
 </script>
@@ -26,6 +27,7 @@
 <link rel="preload" href="fonts/zenmaru-medium.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="kit/kit.css?v=3">
 <link rel="stylesheet" href="css/mila.css?v=3">
+<link rel="stylesheet" href="css/heros.css?v=1">
 </head>
 <body>
 
@@ -94,7 +96,12 @@
       </div>
     </div>
     <div class="hero__arte" aria-hidden="true">
+      <figure class="arco arco--a"><img src="img/tortas/marquise-frutos-rojos.webp" alt="" width="485" height="388" decoding="async"><figcaption>Marquise frutos rojos</figcaption></figure>
+      <figure class="arco arco--c"><img src="img/tortas/red-velvet.webp" alt="" width="485" height="388" decoding="async"><figcaption>Red velvet</figcaption></figure>
       <figure class="arco arco--b"><img src="img/tortas/marquise-pistacho.webp" alt="" width="485" height="388" decoding="async" fetchpriority="high"><figcaption>Marquise pistacho</figcaption></figure>
+      <figure class="arco arco--local"><img src="img/fotos/024-720.webp" alt="" width="720" height="900" decoding="async" loading="lazy"><figcaption>Melincué 3142 · Villa del Parque</figcaption></figure>
+      <div class="desfile"><div class="desfile__pista"><figure class="d-arco"><img src="img/tortas/marquise-frutos-rojos.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Marquise frutos rojos</figcaption></figure><figure class="d-arco"><img src="img/tortas/red-velvet.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Red velvet</figcaption></figure><figure class="d-arco"><img src="img/tortas/cc-new-york.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Cheesecake New York</figcaption></figure><figure class="d-arco"><img src="img/tortas/marquise-kinder.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Marquise Kinder</figcaption></figure><figure class="d-arco"><img src="img/tortas/lemon-pie.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Lemon pie</figcaption></figure><figure class="d-arco"><img src="img/tortas/cc-pistacho-frambuesas.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Cheesecake pistacho</figcaption></figure><figure class="d-arco"><img src="img/tortas/carrot-cake.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Carrot cake</figcaption></figure><figure class="d-arco"><img src="img/tortas/bomba-oreo.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Bomba Oreo</figcaption></figure><figure class="d-arco"><img src="img/tortas/marquise-frutos-rojos.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Marquise frutos rojos</figcaption></figure><figure class="d-arco"><img src="img/tortas/red-velvet.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Red velvet</figcaption></figure><figure class="d-arco"><img src="img/tortas/cc-new-york.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Cheesecake New York</figcaption></figure><figure class="d-arco"><img src="img/tortas/marquise-kinder.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Marquise Kinder</figcaption></figure><figure class="d-arco"><img src="img/tortas/lemon-pie.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Lemon pie</figcaption></figure><figure class="d-arco"><img src="img/tortas/cc-pistacho-frambuesas.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Cheesecake pistacho</figcaption></figure><figure class="d-arco"><img src="img/tortas/carrot-cake.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Carrot cake</figcaption></figure><figure class="d-arco"><img src="img/tortas/bomba-oreo.webp" alt="" width="485" height="388" loading="lazy" decoding="async"><figcaption>Bomba Oreo</figcaption></figure></div></div>
+      <span class="fondo-arco"></span>
       <img class="hero__chica" src="img/personaje.webp" alt="" width="900" height="574" decoding="async">
       <span class="sticker sticker--mmm hero__mmm">mmm</span>
     </div>
